@@ -9,3 +9,4 @@ _notes
 Thumbs.db
 db/*.sqlite3
 .DS_Store
+config/database.yml
