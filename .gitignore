@@ -10,3 +10,5 @@ Thumbs.db
 db/*.sqlite3
 .DS_Store
 config/database.yml
+public/thumbnails/
+public/videos/
