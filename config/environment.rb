@@ -15,10 +15,14 @@ Rails::Initializer.run do |config|
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
   # See Rails::Configuration for more options.
-
-  # Skip frameworks you're not going to use. To use Rails without a database
-  # you must remove the Active Record framework.
-  # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
+  
+  # Add additional load paths for your own custom dirs
+  # config.load_paths += %W( #{RAILS_ROOT}/extras )  
+  # %w(observers sweepers mailers middleware).each do |dir|
+  #   config.load_paths << "#{RAILS_ROOT}/app/#{dir}"
+  # end
+  # 增加rack middleware
+  config.load_paths << "#{RAILS_ROOT}/app/middleware"
 
   # Specify gems that this application depends on. 
   # They can then be installed with "rake gems:install" on new installations.
@@ -27,15 +31,27 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
-  config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'  
+  config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
+  # 封装ffmpeg的gem，按如下方法安装最新的兼容ffmpeg0.5的版本
+  # sudo gem install echoe
+  # git clone git://github.com/newbamboo/rvideo.git
+  # cd rvideo
+  # rake repackage
+  # sudo rake install
+  config.gem 'rvideo', :version => '~> 0.9.6', :source => 'http://gemcutter.org'
+  # 角色控制和访问控制列表
+  # config.gem "acl9", :source => "http://gemcutter.org", :lib => "acl9" # 用plugin版
+  # mime-types插件
+  # config.gem 'mime-types', :lib => 'mime/types' # 用mimetype_fu代替
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
-
-  # Add additional load paths for your own custom dirs
-  # config.load_paths += %W( #{RAILS_ROOT}/extras )
+  
+  # Skip frameworks you're not going to use. To use Rails without a database
+  # you must remove the Active Record framework.
+  # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
   # Force all environments to use the same logger level
   # (by default production uses :info, the others :debug)
@@ -44,21 +60,13 @@ Rails::Initializer.run do |config|
   # Make Time.zone default to the specified zone, and make Active Record store time values
   # in the database in UTC, and return them converted to the specified local zone.
   # Run "rake -D time" for a list of tasks for finding time zone names. Comment line to use default local time.
-  config.time_zone = 'UTC'
+  config.time_zone = 'Beijing'
 
   # The internationalization framework can be changed to have another default locale (standard is :en) or more load paths.
   # All files from config/locales/*.rb,yml are added automatically.
   # config.i18n.load_path << Dir[File.join(RAILS_ROOT, 'my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
 
-  # Your secret key for verifying cookie session data integrity.
-  # If you change this key, all old sessions will become invalid!
-  # Make sure the secret is at least 30 characters and all random, 
-  # no regular words or you'll be exposed to dictionary attacks.
-  config.action_controller.session = {
-    :session_key => '_videoapp_session',
-    :secret      => 'd1b8961c67fc032503103c44aee0161e4059384243c4ae87df6cdadb7de06e6110baf0dde409d328f04e258f80a08780dbe6581f3990a9e4f96c26b48b2c8fcd'
-  }
 
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
