@@ -39,6 +39,7 @@ Rails::Initializer.run do |config|
   # rake repackage
   # sudo rake install
   config.gem 'rvideo', :version => '~> 0.9.6', :source => 'http://gemcutter.org'
+  config.gem 'RubyInline', if RUBY_PLATFORM =~ /Linux/
   # 角色控制和访问控制列表
   # config.gem "acl9", :source => "http://gemcutter.org", :lib => "acl9" # 用plugin版
   # mime-types插件
