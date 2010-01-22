@@ -1,9 +1,22 @@
 class VideosController < ApplicationController
   
-    before_filter :require_user, :only => [:new, :delete, :create]
+  before_filter :find_video, :only => [:show, :edit, :update, :destroy] # 必须在access_control之前取到@video
   
+  # acl9插件提供的访问控制列表DSL
+  access_control do
+    allow all, :to => [:index, :show, :download]    
+    allow :admin
+    allow logged_in, :to => [:new, :create]
+    allow :creator, :editor, :of => :video, :to => [:edit, :update] # :video 是对@video的引用
+    # allow logged_in, :except => :destroy     
+    # allow anonymous, :to => [:index, :show]
+  end
+
+  # before_filter :require_user, :only => [:new, :delete, :create] # 用acl9后就不用自己处理  
+  # skip_before_filter :verify_authenticity_token  # 测试用
+
   def index
-    @videos = Video.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 10
+    @videos = Video.converted.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 12
   end
 
   def new
@@ -13,23 +26,52 @@ class VideosController < ApplicationController
   def create
     @video = Video.new(params[:video])
     @video.user = @current_user
+    # flash上传的二进制流mime type是 application/octet-stream。
+    # 需要给上传的视频文件用mime-type插件获取mime type保存到属性里
+    # @video.asset_content_type = MIME::Types.type_for(@video.asset.original_filename).to_s
+    @video.asset_content_type = File.mime_type?(@video.asset.original_filename)
     if @video.save
-      @video.convert
-      flash[:notice] = 'Video has been uploaded'
-      redirect_to :action => 'index'
+      if request.env['HTTP_USER_AGENT'] =~ /^(Adobe|Shockwave) Flash/
+        # head(:ok, :id => @video.id) and return
+        render :text => "id=#{@video.id}"
+      else
+        # @video.convert
+        flash[:notice] = '视频文件已成功上传'
+        redirect_to @video
+      end
     else
       render :action => 'new'
     end
   end
 
   def show
-    @video = Video.find(params[:id])
     @reply = VideoReply.new
   end
-  
-  def delete
-    @video = Video.find(params[:id])
-    @video.destroy
-    redirect_to :action => 'index'
+
+  # 下载文件，通过webserver的x sendfile直接发送文件
+  # TODO 可在此完善下载计数器
+  # TODO 下载的是原文件名的新文件
+  SEND_FILE_METHOD = :default # 配置webserver
+  def download
+    head(:not_found) and return if (video = Video.find_by_id(params[:id])).nil?
+    head(:forbidden) and return unless video.downloadable?(current_user)
+    path = video.asset.path(params[:style])
+    head(:bad_request) and return unless File.exist?(path) && params[:format].to_s == File.extname(path).gsub(/^\.+/, '')
+
+    send_file_options = { :type => File.mime_type?(path) }
+
+    case SEND_FILE_METHOD
+    when :apache then send_file_options[:x_sendfile] = true
+    when :nginx then head(:x_accel_redirect => path.gsub(Rails.root, ''), :content_type => send_file_options[:type]) and return
+    end
+
+    send_file(path, send_file_options)
   end
+
+private
+ 
+  def find_video
+    @video = Video.find(params[:id])
+  end
+
 end

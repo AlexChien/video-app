@@ -1,0 +1,15 @@
+=====ey-video-app
+
+修改后继续开发的rails视频解决方案
+
+=====安装
+
+封装ffmpeg的gem rvideo
+<pre>
+sudo gem install echoe
+git clone git://github.com/newbamboo/rvideo.git
+cd rvideo
+rake repackage
+sudo rake install
+</pre>
+

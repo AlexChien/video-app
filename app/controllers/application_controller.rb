@@ -13,8 +13,10 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
   
-  before_filter :get_tag_cloud
+  # before_filter :get_tag_cloud
   
+  # 访问了acl9控制的资源而没有权限时引发这个异常，在此捕获处理
+  rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user
@@ -23,35 +25,44 @@ class ApplicationController < ActionController::Base
 	  @tag_cloud = Video.tag_counts
 	end
 
+private
 
-  private
-    def current_user_session
-      return @current_user_session if defined?(@current_user_session)
-      @current_user_session = UserSession.find
+  def current_user_session
+    return @current_user_session if defined?(@current_user_session)
+    @current_user_session = UserSession.find
+  end
+
+  def current_user
+    return @current_user if defined?(@current_user)
+    @current_user = current_user_session && current_user_session.user
+  end
+
+  def require_user
+    unless current_user
+      store_location
+      flash[:notice] = "You must be logged in to access this page"
+      redirect_to new_user_session_url
+      return false
     end
+  end
 
-    def current_user
-      return @current_user if defined?(@current_user)
-      @current_user = current_user_session && current_user_session.user
+  def store_location
+    session[:return_to] = request.request_uri
+  end
+
+  def redirect_back_or_default(default)
+    redirect_to(session[:return_to] || default)
+    session[:return_to] = nil
+  end
+
+  # acl9访问控制不通过时
+  def access_denied
+    if current_user
+      render :template => 'shared/access_denied'
+    else
+      flash[:notice] = '你没有登陆或者没有权限执行此操作。'
+      redirect_to login_path
     end
-
-    def require_user
-      unless current_user
-        store_location
-        flash[:notice] = "You must be logged in to access this page"
-        redirect_to new_user_session_url
-        return false
-      end
-    end
-
-    def store_location
-      session[:return_to] = request.request_uri
-    end
-
-    def redirect_back_or_default(default)
-      redirect_to(session[:return_to] || default)
-      session[:return_to] = nil
-    end
-
+  end   
 	
 end
