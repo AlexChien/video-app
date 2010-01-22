@@ -1,0 +1,38 @@
+#header
+{
+	background: #f07c01 none repeat scroll 0 0;
+/*  background-image: url(/images/header.png);*/
+/*  padding: 10px 4%;*/
+/*  border-bottom: 3px solid #5555a5;*/
+	height: 75px;
+/*  padding-bottom: 0;
+  padding-top: 8px;*/
+	
+}
+
+#logo
+{
+/*  margin-top: 20px;
+  width: 400px;*/
+}
+
+#logo a
+{
+	color: #c8c8c8;
+/*  width: 223px;
+  height: 33px;*/
+	font-weight: bold;
+	font-size: 25px;
+	text-decoration: none;	
+/*  background-color: #5050FF;
+  padding: 5px 10px 5px 10px;
+  border: 3px solid #5555A5;*/
+}
+
+#logo a:hover
+{
+/*  background-color: #8c8cfc;
+  border: 2px solid #222222;
+  color: #5050ff;
+  color: red;*/
+}
