@@ -15,3 +15,7 @@ config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
+
+# added support for footnotes, good for textmate development
+# http://github.com/josevalim/rails-footnotes/
+config.gem "josevalim-rails-footnotes",  :lib => "rails-footnotes" if RUBY_PLATFORM =~ /darwin/
