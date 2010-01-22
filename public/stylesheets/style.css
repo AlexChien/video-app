@@ -43,8 +43,8 @@ h2 {
 
 #header
 {
-	background: #111111 none repeat scroll 0 0;
-	background-image: url(/images/header.png);
+	background: #f07c01 none repeat scroll 0 0;
+/*  background-image: url(/images/header.png);*/
 	padding: 10px 4%;
 	border-bottom: 3px solid #5555a5;
 	height: 75px;
@@ -62,23 +62,22 @@ h2 {
 #logo a
 {
 	color: #c8c8c8;
-	color: #ff5555;
 	width: 223px;
 	height: 33px;
 	font-weight: bold;
 	font-size: 25px;
 	text-decoration: none;	
-	background-color: #5050FF;
-	padding: 5px 10px 5px 10px;
-	border: 3px solid #5555A5;
+/*  background-color: #5050FF;
+  padding: 5px 10px 5px 10px;
+  border: 3px solid #5555A5;*/
 }
 
 #logo a:hover
 {
-	background-color: #8c8cfc;
-	border: 2px solid #222222;
-	color: #5050ff;
-	color: red;
+/*  background-color: #8c8cfc;
+  border: 2px solid #222222;
+  color: #5050ff;
+  color: red;*/
 }
 
 #search
@@ -117,16 +116,16 @@ h2 {
 
 #sidebar
 {
-	background: #d9d9ff none repeat scroll 0 0;
-	width: 250px;
-	float: left;
-	padding-top: 20px;
-	border-right: 3px solid #5555a5;
-	border-bottom: 3px solid #5555a5;
-	margin-left: -100%;
-	text-align: center;
-	height: 100%;
-	
+  background: #d9d9ff none repeat scroll 0 0;
+/*  width: 250px;
+  float: left;
+  padding-top: 20px;
+  border-right: 3px solid #5555a5;
+  border-bottom: 3px solid #5555a5;
+  margin-left: -100%;
+  text-align: center;
+  height: 100%;
+  */
 }
 
 #sidebar a
@@ -149,8 +148,8 @@ h2 {
 
 #main
 {
-	float: left;
-	width: 100%;
+/*  float: left;
+  width: 100%;*/
 }
 
 #main_col
@@ -176,8 +175,8 @@ h2 {
 
 .video_container
 {
-	width: 100%;
-	height: 100%;
+/*  width: 100%;
+  height: 100%;*/
 }
 
 #video_replies
@@ -279,7 +278,7 @@ a:hover.video_thumb
 {
 	width: 100%;
 	height: 60px;
-	background-color: black;
+	background-color: #f07c01;
 	border-top: 3px solid #5555a5;
 	clear: left;
 	padding-top:20px;

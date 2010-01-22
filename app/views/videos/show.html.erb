@@ -1,12 +1,22 @@
+<!-- 展示页面 视频详细信息显示 开始 -->
+
+<%= javascript_include_tag 'flowplayer' %>
+
 <div class = "video_show">
+  
 	<h1><%= @video.title %></h1>
+	
+  <% if current_user && current_user.has_role?('admin') %>
+    <%= link_to "管理该视频", admin_video_path(@video) %>  <br />
+  <% end %>	
+	
 	<div class = "author">Uploaded By: <%= link_to @video.user.login, @video.user %> on <%= @video.created_at %></div>
 	<span class = "tags">Tagged with: <span><%= @video.tag_list %></span></span>
 		<% if @video.state == "converted" %>
 			<p id = "video">
 				<a  
-					 href="<%= @video.public_filename %>"  
-					 style="display:block;width:720px;height:480px"  
+					 href="<%= @video.asset.url(:transcoded) %>"  
+           style="display:block;width:500px;height:375px" 
 					 id="player"> 
 				</a> 
 			  
@@ -15,16 +25,32 @@
 					flowplayer("player", "/flowplayer/flowplayer-3.0.3.swf");
 				</script>
 			</p>
-		<% else %>
-			<% if @video.state == "error" %>
-				<h2>Error Converting Video, it will be removed shortly</h2>	
-			<% else %>
-				<h2>Video is being converted, check back in a few minutes</h2>		
-			<% end %>
-
-		<% end %>
+  <% else %>
+    <% if @video.state == "error" %>
+      <h2>视频编码错误，请联系管理员</h2>	
+    <% elsif @video.state == "pending" %>
+      <h2>视频尚未审核通过</h2>
+    <% else %>
+      <h2>视频正在编码中，稍后再试</h2> 	
+    <% end %>
+  <% end %>
 		<br />
 	<p><%= @video.description %></p>
+
+<% if false %>
+<br/><%=  @video.asset.url %>
+<br/><%=  @video.asset.url(:small) %>
+<br/><%=  @video.asset.url(:medium) %>
+<br/><%=  @video.asset.url(:large) %>
+<br/><%=  @video.asset.path %>
+<br/><%=  @video.asset.path(:small) %>
+<br/><%=  @video.asset.path(:medium) %>
+<br/><%=  @video.asset.path(:large) %>
+<% end %>
+
+  <%#= image_tag @video.asset.url %>
+  <%= image_tag @video.asset.url(:large) %>
+
 
 	<div id = "video_replies">
 		<%= render :partial => 'reply' %>
@@ -38,3 +64,5 @@
 	</div>
 
 </div><!-- /video_show -->		
+
+<!-- 展示页面 视频详细信息显示 结束 -->	

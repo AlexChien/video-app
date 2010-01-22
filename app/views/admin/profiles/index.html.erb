@@ -1,0 +1,62 @@
+<h1>编码格式</h1>
+<%= link_to "新建编码格式", new_admin_profile_path %>
+<h2>说明</h2>
+<p>
+  编码格式是上传视频将被编码成的格式。如果有多个格式，会编码为相应的多个文件。推荐格式如下：
+  <pre>
+title:"Flash video SD",  container:"flv", video_bitrate:300, audio_bitrate:48, width:320, height:240, fps:24, position:0, player:"flash"
+
+title:"Flash video HI",  container:"flv", video_bitrate:400, audio_bitrate:48, width:480, height:360, fps:24, position:1, player:"flash"
+
+title:"Flash h264 SD",   container:"mp4", video_bitrate:300, audio_codec:"aac", audio_bitrate:48, width:320, height:240, fps:24, position:2, player:"flash"
+
+title:"Flash h264 HI",   container:"mp4", video_bitrate:400, audio_bitrate:48, audio_codec:"aac", width:480, height:360, fps:24, position:3, player:"flash"
+
+title:"Flash h264 480p", container:"mp4", video_bitrate:600, audio_bitrate:48, audio_codec:"aac", width:852, height:480, fps:24, position:4, player:"flash"
+</pre>
+</p>
+
+<h2>现有格式列表</h2>
+<p>
+  现有格式如下：
+  <table>
+    <tr>
+      <td>标题</td>
+      <td>播放器</td>
+      <td>容器</td>
+      <td>宽度（像素）</td>      
+      <td>高度（像素）</td>
+      <td>视频编码器</td>
+      <td>视频码率</td>              
+      <td>每秒帧数</td> 
+      <td>音频编码器</td>   
+      <td>音频码率</td>
+      <td>音频采样率</td>     
+      <td>位置</td>   
+      <td>操作</td>   
+    </tr>
+    <tbody>
+    <% @profiles.each do |profile| %>
+    <tr>      
+      <td><%= profile.title %></td>
+      <td><%= profile.player %></td>
+      <td><%= profile.container %></td>
+      <td><%= profile.width %></td>
+      <td><%= profile.height %></td>
+      <td><%= profile.video_codec %></td>
+      <td><%= profile.video_bitrate %></td>
+      <td><%= profile.fps %></td>
+      <td><%= profile.audio_codec %></td>
+      <td><%= profile.audio_bitrate %></td>
+      <td><%= profile.audio_sample_rate %></td>
+      <td><%= profile.position %></td>
+      <td>
+        <%= link_to "详情", admin_profile_path(profile) %> | 
+        <%= link_to "编辑", edit_admin_profile_path(profile) %>
+      </td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+</p>
+<%= link_to "新建编码格式", new_admin_profile_path %>

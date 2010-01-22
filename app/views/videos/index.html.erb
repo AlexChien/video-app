@@ -1,20 +1,19 @@
-<p><h2>Videos</h2></p><br />
-<%= will_paginate @videos %>
-	<div class = "video_container">
-		<% for video in @videos do %>
+<h2>视频</h2>
 
-		  <a href = "<%= video_url(video) %>" class = "video_thumb">
-			  
-		  		<%= video.thumbnail ? image_tag(video.thumbnail.public_filename) : "No Thumbnail Available" %>
-		  		<p><%= video.title %></p>
-					<p>Uploaded By: <%= video.user.login %></p>		  	
-		 	</a>
+<div class="span-24"><%= will_paginate @videos %></div>
 
-		<% end %>
-		.
-	</div><!-- /video_container -->
-<div class = "clear-right">.</div>
-		<%= will_paginate @videos, :class => "pagination page-wide" %>
-		 	
-	<br />
+<% @videos.each do |video| %>
+<div class="prepend-1 span-5">
+  <a href = "<%= video_url(video) %>" class = "video_thumb">
+    <%#= video.thumbnail ? image_tag(video.thumbnail.public_filename) : "No Thumbnail Available" %>
+    <%= image_tag video.asset.url(:small), :alt => video.filename %>
+    <p><%= video.title %></p>
+    <p><%= video.user.login %> 上传</p>
+  </a>
+</div>
+<% end %>
+
+<div class="span-24"><%= will_paginate @videos, :class => "pagination page-wide" %></div>
+
+<br />
 

@@ -1,0 +1,10 @@
+<h1>编辑视频格式</h1>
+<%= link_to "视频格式首页", admin_profiles_path %>
+<% form_for @profile, :url => admin_profile_path(@profile.id) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "提交更新" %>
+<% end %>
+
+<br />
+<%= link_to "视频格式首页", admin_profiles_path %>
