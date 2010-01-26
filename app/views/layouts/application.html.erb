@@ -13,7 +13,9 @@
 
   <body>
     <!-- 主容器 开始 -->
-    <div id = "body" class="container showgrid">
+    <!-- <div id = "body" class="container showgrid"> -->
+    <%  container = Rails.env.production? ? "container" : "container showgrid" %>
+    <div id = "body" class="<%= container %>">
 
       <%= render 'shared/header' %>
     	

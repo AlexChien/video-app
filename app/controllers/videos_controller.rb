@@ -12,7 +12,6 @@ class VideosController < ApplicationController
     # allow anonymous, :to => [:index, :show]
   end
 
-  # before_filter :require_user, :only => [:new, :delete, :create] # 用acl9后就不用自己处理  
   # skip_before_filter :verify_authenticity_token  # 测试用
 
   def index
@@ -51,7 +50,8 @@ class VideosController < ApplicationController
   # 下载文件，通过webserver的x sendfile直接发送文件
   # TODO 可在此完善下载计数器
   # TODO 下载的是原文件名的新文件
-  SEND_FILE_METHOD = :default # 配置webserver
+  # SEND_FILE_METHOD = :default # 配置webserver
+  SEND_FILE_METHOD = :nginx # 配置webserver为nginx，nginx需要相应配置X-Sendfile
   def download
     head(:not_found) and return if (video = Video.find_by_id(params[:id])).nil?
     head(:forbidden) and return unless video.downloadable?(current_user)
