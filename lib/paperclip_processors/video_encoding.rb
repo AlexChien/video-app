@@ -47,12 +47,12 @@ module Paperclip
       # 注意参数后的空格！
       recipe = "ffmpeg -i $input_file$ " # 输入文件路径
       recipe += "-ar 22050 " 
-      recipe += "-ab 48k " # 音频码率 $audio_bitrate$
+      recipe += "-ab 48000 " # 音频码率 $audio_bitrate$
       recipe += "-f flv " # 视频格式
-      recipe += "-b 300 " # 视频码率 $video_bitrate_in_bits$
+      recipe += "-b 300000 " # 视频码率 $video_bitrate_in_bits$
       recipe += "-r 24 " # 帧速率 $fps$
-      recipe += "$resolution$ -y " # 尺寸 宽x高 $resolution$
-      recipe += "$output_file$ " # 输出文件路径
+      recipe += "-s $resolution$ " # 尺寸 宽x高 $resolution$
+      recipe += "-y $output_file$ " # 输出文件路径
       recipe += "\nflvtool2 -U $output_file$"
       begin
 # debugger
