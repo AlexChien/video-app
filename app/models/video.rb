@@ -1,8 +1,10 @@
 # 视频管理和编码模型
 class Video < ActiveRecord::Base
   
+  named_scope :publiced, :conditions => [ "state = 'converted' OR state = 'no_encoding'"]
   named_scope :pending, :conditions => {:state => 'pending'}
   named_scope :audited, :conditions => {:state => 'audited'}
+  named_scope :no_encoding, :conditions => {:state => 'no_encoding'}
   named_scope :queued_up, :conditions => {:state => 'queued_up'}
   named_scope :converting, :conditions => {:state => 'converting'}
   named_scope :converted, :conditions => {:state => 'converted'}
@@ -57,6 +59,7 @@ class Video < ActiveRecord::Base
     
     event :audit       do transition :pending => :audited end
     event :queue       do transition :audited => :queued_up end
+    event :no_encode   do transition all - :pending => :no_encoding end
     event :convert     do transition :queued_up => :converting end
     event :fore_encode do transition all - :pending =>  :converting end
     event :converted   do transition :converting => :converted end

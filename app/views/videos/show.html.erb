@@ -10,12 +10,17 @@
     <%= link_to "管理该视频", edit_admin_video_path(@video) %>  <br />
   <% end %>	
 	
-	<div class = "author">Uploaded By: <%= link_to @video.user.login, @video.user %> on <%= @video.created_at %></div>
-	<span class = "tags">Tagged with: <span><%= @video.tag_list %></span></span>
-		<% if @video.state == "converted" %>
+  <div class = "author">
+    <%= link_to @video.user.login, @video.user %> 上传于 <%= @video.created_at.to_s(:db) %>
+  </div>
+  <% if false %>
+  <span class = "tags">Tagged with: <span><%= @video.tag_list %></span></span>
+  <% end %>
+		<% if @video.state == "converted" ||  @video.state == "no_encoding" %>
 			<p id = "video">
+			  <% url = @video.state == "converted" ? @video.asset.url(:transcoded) : @video.asset.url %>
 				<a  
-					 href="<%= @video.asset.url(:transcoded) %>"  
+					 href="<%= url %>"  
            style="display:block;width:500px;height:375px" 
 					 id="player"> 
 				</a> 
@@ -36,17 +41,6 @@
   <% end %>
 		<br />
 	<p><%= @video.description %></p>
-
-<% if false %>
-<br/><%=  @video.asset.url %>
-<br/><%=  @video.asset.url(:small) %>
-<br/><%=  @video.asset.url(:medium) %>
-<br/><%=  @video.asset.url(:large) %>
-<br/><%=  @video.asset.path %>
-<br/><%=  @video.asset.path(:small) %>
-<br/><%=  @video.asset.path(:medium) %>
-<br/><%=  @video.asset.path(:large) %>
-<% end %>
 
   <%#= image_tag @video.asset.url %>
   <%#= image_tag @video.asset.url(:large) %>

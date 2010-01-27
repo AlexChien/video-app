@@ -4,6 +4,7 @@
 <%= link_to "全部视频", admin_videos_path %>
 <%= link_to "待审核视频", admin_videos_path(:state => 'pending') %>
 <%#= link_to "已审核视频", admin_videos_path(:state => 'audited') %>
+<%= link_to "不需要编码的视频", admin_videos_path(:state => 'no_encoding') %>
 <%= link_to "进入编码队列视频", admin_videos_path(:state => 'queued_up') %>
 <%= link_to "编码中视频", admin_videos_path(:state => 'converting') %>
 <%= link_to "已编码视频", admin_videos_path(:state => 'converted') %>
