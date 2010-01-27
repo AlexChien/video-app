@@ -52,6 +52,9 @@ class Admin::VideosController < ApplicationController
       @video.resume!
       flash[:notice] = "已更改为待审核状态"
     when "不需编码"
+      @video.cancel!
+      @video.resume!
+      @video.audit!
       @video.no_encode!
       flash[:notice] = "不编码，已发布原始视频"
     when "手动编码"
