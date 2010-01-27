@@ -7,7 +7,7 @@
 	<h1><%= @video.title %></h1>
 	
   <% if current_user && current_user.has_role?('admin') %>
-    <%= link_to "管理该视频", admin_video_path(@video) %>  <br />
+    <%= link_to "管理该视频", edit_admin_video_path(@video) %>  <br />
   <% end %>	
 	
 	<div class = "author">Uploaded By: <%= link_to @video.user.login, @video.user %> on <%= @video.created_at %></div>
@@ -22,7 +22,7 @@
 			  
 				<!-- this will install flowplayer inside previous A- tag. -->
 				<script>
-					flowplayer("player", "/flowplayer/flowplayer-3.0.3.swf");
+					flowplayer("player", "/flowplayer/flowplayer-3.0.3.swf",{clip:{autoPlay: false, autoBuffering: false}});
 				</script>
 			</p>
   <% else %>
@@ -49,7 +49,7 @@
 <% end %>
 
   <%#= image_tag @video.asset.url %>
-  <%= image_tag @video.asset.url(:large) %>
+  <%#= image_tag @video.asset.url(:large) %>
 
 
 	<div id = "video_replies">

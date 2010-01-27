@@ -1,5 +1,8 @@
-<h1>审核、编辑视频</h1>
+<!-- 审核、编辑视频 开始 -->
 
+<%= javascript_include_tag 'flowplayer' %>
+
+<h1>审核、编辑视频</h1>
 
 <div class="span-12">
 <% form_for @video, :url => admin_video_path do |f| %>
@@ -11,6 +14,9 @@
   <div class="span-9"><%= @video.state %></div>
   <div class="span-1"><%= f.label :description,'描述' %>:</div> 
   <div class="span-11"><%= f.text_area :description %></div>
+  <div class="span-12">视频截图:<br/>
+    <%= image_tag @video.asset.url(:medium), :alt => @video.filename %>
+  </div>  
   <% if false %>
   <div class="span-1"><%= f.label :tags %>: </div>
   <div class="span-11"><%= f.text_field :tag_list %></div>
@@ -38,21 +44,21 @@
   </div>
 <% end %>
 
-
 <div class="span-12">
 <%= link_to "返回该视频显示页", video_path(@video) %> | 
 <%= link_to "返回该视频管理首页", admin_video_path(@video) %>
 </div>
 </div>
 
+
 <div class="span-6">
   <h2>原始视频详细参数</h2>
   <hr />
   <div class="span-2">时长：</div> 
   <div class="span-3">
-    <% time = (@video.duration/1000).to_i %>
+    <% time = (@video.duration/1000).to_i if @video.duration %>
     <%#= [time/3600, time/60 % 60, time % 60].map{|t| t.to_s.rjust(2,'0')}.join(':') %>
-    <%= [[time/3600,'时'], [time/60 % 60,'分'], [time % 60,'秒']].map{|t| t[0].to_s.rjust(2,'0')+t[1]}.join %>
+    <%= [[time/3600,'时'], [time/60 % 60,'分'], [time % 60,'秒']].map{|t| t[0].to_s.rjust(2,'0')+t[1]}.join if @video.duration %>
   </div>
   <hr /><div class="span-2">容器：</div> <div class="span-3"><%= @video.container %></div>
   <hr /><div class="span-2">宽：</div> <div class="span-3"><%= @video.width %></div>
@@ -63,3 +69,54 @@
   <hr /><div class="span-2">音频编码器：</div> <div class="span-3"><%= @video.audio_codec %></div>
   <hr /><div class="span-2">音频采样率：</div> <div class="span-3"><%= @video.audio_sample_rate %></div>
 </div>
+
+
+<div class="span-18">
+  播放原始视频：（仅当原始视频格式被支持时可用）
+  <p>
+    <a  
+    href="<%= @video.asset.url %>"  
+    style="display:block;width:500px;height:375px" 
+    id="player"> 
+  </a> 
+
+  <!-- this will install flowplayer inside previous A- tag. -->
+  <script>
+  flowplayer("player", "/flowplayer/flowplayer-3.0.3.swf",{clip:{autoPlay: false, autoBuffering: false}});
+  </script>
+</p>
+</div>
+
+
+<% if @video.state == "converted" %>
+<div class = "span-18">
+  播放编码后的视频：
+  
+  <%= "进入编码队列于：" + @video.queued_at.to_s(:db) if @video.queued_at %>
+  <br />
+  <%= "开始编码于：" + @video.started_encoding_at.to_s(:db) if @video.started_encoding_at %>
+  <br />
+  <%= "结束编码于：" + @video.encoded_at.to_s(:db) if @video.encoded_at %>
+  <br />
+  <% if time = @video.encoding_time %>
+  完成编码总用： 
+  <%= "#{time.hour}小时" unless time.hour == 0 %>
+  <%= "#{time.min}分" unless time.min == 0 %>
+  <%= "#{time.sec}秒" %>
+  <% end %>  
+
+  <p>
+    <a  
+    href   = "<%= @video.asset.url(:transcoded) %>"  
+    style  = "display:block;width:500px;height:375px" 
+    id     = "encoded_player"> 
+  </a> 
+
+  <!-- this will install flowplayer inside previous A- tag. -->
+  <script>
+  flowplayer("encoded_player", "/flowplayer/flowplayer-3.0.3.swf",{clip:{autoPlay: false, autoBuffering: false}});
+  </script>
+</p>
+</div>			
+<% end %>
+<!-- 审核、编辑视频 结束 -->

@@ -19,12 +19,12 @@
 
 <% @videos.each do |video| %>
 <div class="prepend-1 span-3">
-  <a href = "<%= admin_video_url(video) %>" class = "video_thumb">
+  <a href = "<%= edit_admin_video_url(video) %>" class = "video_thumb">
     <%= image_tag video.asset.url(:tiny), :alt => video.filename %>
   </a>
 </div>
 <div class="span-7">
-  <p>标题: <%= link_to video.title, admin_video_url(video) %></p>
+  <p>标题: <%= link_to video.title, edit_admin_video_url(video) %></p>
   <p>上传用户: <%= link_to video.user.login, user_path(video.user) %></p>
 </div>
 <div class="span-3">
