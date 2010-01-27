@@ -51,6 +51,9 @@ class Admin::VideosController < ApplicationController
     when "重置视频"
       @video.resume!
       flash[:notice] = "已更改为待审核状态"
+    when "不需编码"
+      @video.no_encode!
+      flash[:notice] = "不编码，已发布原始视频"
     when "手动编码"
       @video.fore_encode! # 将状态改为编码中才可使用paperclip的video_encoding processer
       begin

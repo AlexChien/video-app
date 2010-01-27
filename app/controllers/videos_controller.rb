@@ -15,7 +15,7 @@ class VideosController < ApplicationController
   # skip_before_filter :verify_authenticity_token  # 测试用
 
   def index
-    @videos = Video.converted.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 12
+    @videos = Video.publiced.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 12
   end
 
   def new
