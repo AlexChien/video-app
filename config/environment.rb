@@ -35,6 +35,7 @@ Rails::Initializer.run do |config|
   # 封装ffmpeg的gem，按如下方法安装最新的兼容ffmpeg0.5的版本
   # sudo gem install echoe
   # sudo gem install open4
+  # sudo gem install flvtool2
   # git clone git://github.com/newbamboo/rvideo.git
   # cd rvideo
   # rake repackage
@@ -42,7 +43,6 @@ Rails::Initializer.run do |config|
   config.gem 'echoe'
   config.gem 'open4'
   config.gem 'rvideo', :version => '~> 0.9.6', :source => 'http://gemcutter.org'
-  config.gem 'flvtool2'
   config.gem 'RubyInline' if RUBY_PLATFORM =~ /Linux/
   # 角色控制和访问控制列表
   # config.gem "acl9", :source => "http://gemcutter.org", :lib => "acl9" # 用plugin版
