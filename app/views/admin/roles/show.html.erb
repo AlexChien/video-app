@@ -1,0 +1,85 @@
+<!-- 管理页面 角色详细信息显示 开始 -->
+
+<%= javascript_include_tag 'flowplayer' %>
+
+<div class = "role_show">
+    
+<div class="prepend-1 span-18">
+<%= link_to "全部角色", admin_roles_path %>
+<%= link_to "待审核角色", admin_roles_path(:state => 'pending') %>
+<%= link_to "已审核角色", admin_roles_path(:state => 'audited') %>
+<%= link_to "进入编码队列角色", admin_roles_path(:state => 'queued_up') %>
+<%= link_to "编码中角色", admin_roles_path(:state => 'converting') %>
+<%= link_to "已编码角色", admin_roles_path(:state => 'converted') %>
+<%= link_to "编码出错角色", admin_roles_path(:state => 'error') %>
+<%= link_to "已取消角色", admin_roles_path(:state => 'canceled') %>
+<%= link_to "已删除角色", admin_roles_path(:state => 'soft_deleted') %>
+<hr />
+</div>    
+    
+  <h1>角色详细信息</h1>
+  
+  <%= link_to "审核、编辑角色", edit_admin_role_path(@role) %>
+    
+	<h2>角色标题：<%#= @role.title %></h2>
+  	
+	<div class = "author">
+	  <%= link_to @role.name, admin_role_path(@role) %> 于 <%= @role.created_at.to_s(:db) %> 上传
+	</div>
+	<span class = "tags">Tagged with: <span><%#= @role.tag_list %></span></span>
+
+<br />
+
+  <% if false; @role.state == "converted" %>
+    <%= "进入编码队列于：" + @role.queued_at.to_s(:db) if @role.queued_at %>
+    <br />
+    <%= "开始编码于：" + @role.started_encoding_at.to_s(:db) if @role.started_encoding_at %>
+    <br />
+    <%= "结束编码于：" + @role.encoded_at.to_s(:db) if @role.encoded_at %>
+    <br />
+    <% if time = @role.encoding_time %>
+    完成编码总用： 
+    <%= "#{time.hour}小时" unless time.hour == 0 %>
+    <%= "#{time.min}分" unless time.min == 0 %>
+    <%= "#{time.sec}秒" %>
+    <% end %>
+  <% end %>
+
+  <% if false; @role.state == "converted" %>
+  <p id = "role">
+    <a  
+    href="<%= @role.asset.url(:transcoded) %>"  
+    style="display:block;width:500px;height:375px"
+    id="player"> </a> 
+
+    <!-- this will install flowplayer inside previous A- tag. -->
+    <script>
+    flowplayer("player", "/flowplayer/flowplayer-3.0.3.swf");
+    </script>
+  </p>
+  <%# else %>
+    <%= @role.state %>
+    <% if @role.state == "error" %>
+      <h2>角色编码错误，请联系管理员</h2>	
+    <% elsif @role.state == "pending" %>
+      <h2>角色尚未审核通过</h2>
+    <% elsif @role.state == "soft_deleted" %>
+      <h2>角色已被删除</h2>   
+    <% elsif @role.state == "converting" %>
+      <h2>角色正在编码中，稍后再试</h2>      
+    <% else %>
+      <h2><%= @role.state %></h2> 	
+    <% end %>
+  <% end %>
+		
+	<br />
+	
+	<p>角色描述：<br /><%#= @role.description %></p>
+
+
+  <p>角色截图：<br /><%#= image_tag @role.asset.url(:large), :alt => @role.filename %></p>
+
+  <%= link_to "审核、编辑角色", edit_admin_role_path(@role) %>
+
+</div>
+<!-- 管理页面 角色详细信息显示 结束 -->	

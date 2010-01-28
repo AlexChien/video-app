@@ -1,0 +1,49 @@
+<!-- 管理用户 首页 开始 -->
+
+<h2>管理用户</h2>
+
+<hr />
+
+<div class="prepend-1 span-18">
+<%= link_to "全部用户", admin_users_path %>
+<%= link_to "待审核用户", admin_users_path(:state => 'pending') %>
+<%= link_to "已审核用户", admin_users_path(:state => 'audited') %>
+<%= link_to "进入编码队列用户", admin_users_path(:state => 'queued_up') %>
+<%= link_to "编码中用户", admin_users_path(:state => 'converting') %>
+<%= link_to "已编码用户", admin_users_path(:state => 'converted') %>
+<%= link_to "编码出错用户", admin_users_path(:state => 'error') %>
+<%= link_to "已取消用户", admin_users_path(:state => 'canceled') %>
+<%= link_to "已删除用户", admin_users_path(:state => 'soft_deleted') %>
+</div>
+
+<hr class="space"/>
+<hr />
+
+<div class="span-19"><%= will_paginate @users %></div>
+<hr class="space"/>
+
+<% @users.each do |user| %>
+<div class="prepend-1 span-3">
+  <a href = "<%= admin_user_url(user) %>" class = "user_thumb">
+    <%#= image_tag user.asset.url(:tiny), :alt => user.filename %>
+  </a>
+</div>
+<div class="span-7">
+  <p>头像: <%#= link_to user.title, admin_user_url(user) %></p>
+  <p>用户登陆名: <%= link_to user.login, admin_user_path(user) %></p>
+</div>
+<div class="span-3">
+  <span>状态</span>:
+  <p><%= user.state %></p>
+</div>
+<div class="span-4">
+  <p>操作人</p>
+  <p>操作时间</p>
+</div>
+<hr />
+<% end %>
+
+
+<div class="span-19"><%= will_paginate @users, :class => "pagination page-wide" %></div>
+<hr class="space"/>
+<!-- 管理用户 首页 结束 -->

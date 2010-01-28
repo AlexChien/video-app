@@ -1,0 +1,89 @@
+<!-- 管理页面 用户详细信息显示 开始 -->
+
+<%= javascript_include_tag 'flowplayer' %>
+
+<div class = "user_show">
+    
+<div class="prepend-1 span-18">
+<%= link_to "全部用户", admin_users_path %>
+<%= link_to "待审核用户", admin_users_path(:state => 'pending') %>
+<%= link_to "已审核用户", admin_users_path(:state => 'audited') %>
+<%= link_to "进入编码队列用户", admin_users_path(:state => 'queued_up') %>
+<%= link_to "编码中用户", admin_users_path(:state => 'converting') %>
+<%= link_to "已编码用户", admin_users_path(:state => 'converted') %>
+<%= link_to "编码出错用户", admin_users_path(:state => 'error') %>
+<%= link_to "已取消用户", admin_users_path(:state => 'canceled') %>
+<%= link_to "已删除用户", admin_users_path(:state => 'soft_deleted') %>
+<hr />
+</div>    
+    
+  <h1>用户详细信息</h1>
+  
+  <%= link_to "审核、编辑用户", edit_admin_user_path(@user) %>
+    
+	<h2>用户标题：<%#= @user.title %></h2>
+  	
+	<div class = "author">
+	  <%= link_to @user.login, user_path(@user) %> 于 <%= @user.created_at.to_s(:db) %> 上传
+	</div>
+	<div>角色: 
+	  <% @user.role_objects.each do |r| %>
+	  <%= r.name %>
+	  <% end %>
+	</div>
+
+<br />
+
+  <% if @user.state == "converted" %>
+    <%= "进入编码队列于：" + @user.queued_at.to_s(:db) if @user.queued_at %>
+    <br />
+    <%= "开始编码于：" + @user.started_encoding_at.to_s(:db) if @user.started_encoding_at %>
+    <br />
+    <%= "结束编码于：" + @user.encoded_at.to_s(:db) if @user.encoded_at %>
+    <br />
+    <% if time = @user.encoding_time %>
+    完成编码总用： 
+    <%= "#{time.hour}小时" unless time.hour == 0 %>
+    <%= "#{time.min}分" unless time.min == 0 %>
+    <%= "#{time.sec}秒" %>
+    <% end %>
+  <% end %>
+
+  <% if @user.state == "converted" %>
+  <p id = "user">
+    <a  
+    href="<%= @user.asset.url(:transcoded) %>"  
+    style="display:block;width:500px;height:375px"
+    id="player"> </a> 
+
+    <!-- this will install flowplayer inside previous A- tag. -->
+    <script>
+    flowplayer("player", "/flowplayer/flowplayer-3.0.3.swf");
+    </script>
+  </p>
+  <% else %>
+    <%= @user.state %>
+    <% if @user.state == "error" %>
+      <h2>用户编码错误，请联系管理员</h2>	
+    <% elsif @user.state == "pending" %>
+      <h2>用户尚未审核通过</h2>
+    <% elsif @user.state == "soft_deleted" %>
+      <h2>用户已被删除</h2>   
+    <% elsif @user.state == "converting" %>
+      <h2>用户正在编码中，稍后再试</h2>      
+    <% else %>
+      <h2><%= @user.state %></h2> 	
+    <% end %>
+  <% end %>
+		
+	<br />
+	
+	<p>用户描述：<br /><%#= @user.description %></p>
+
+
+  <p>用户截图：<br /><%#= image_tag @user.asset.url(:large), :alt => @user.filename %></p>
+
+  <%= link_to "审核、编辑用户", edit_admin_user_path(@user) %>
+
+</div>
+<!-- 管理页面 用户详细信息显示 结束 -->	

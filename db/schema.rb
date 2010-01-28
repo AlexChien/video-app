@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100122020551) do
+ActiveRecord::Schema.define(:version => 20100125040711) do
 
   create_table "profiles", :force => true do |t|
     t.string   "title",             :limit => 40
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20100122020551) do
     t.string   "current_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state"
   end
 
   create_table "video_replies", :force => true do |t|
@@ -105,7 +106,7 @@ ActiveRecord::Schema.define(:version => 20100122020551) do
     t.datetime "asset_updated_at"
     t.datetime "queued_at"
     t.datetime "started_encoding_at"
-    t.time "encoding_time"
+    t.time     "encoding_time"
     t.datetime "encoded_at"
   end
 
