@@ -44,7 +44,7 @@
   <% end %>
   <%= f.submit "重新生成缩略图" %> |
   <%= f.submit "手动编码" unless @video.state=="pending" %>
-  <%= f.submit "不需编码" unless @video.state=="pending" %>
+  <%= f.submit "不需编码" %>
   <% if @video.state == 'soft_deleted' %>
   <%= link_to("恢复该视频", admin_video_path(@video), :confirm => '恢复该视频?', :method => :put) %>
   <% else %>
