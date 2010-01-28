@@ -50,6 +50,11 @@
   <% else %>
   <%= link_to("删除该视频", admin_video_path(@video), :confirm => '删除该视频?', :method => :delete) %>
   <% end %>
+  <% if current_user && current_user.has_role?('owner') %>
+  <%= link_to("物理删除该视频", rm_admin_video_path(@video), 
+              :confirm => '物理删除该视频?', :method => :delete) %>
+  <% end %>
+  
   </div>
 <% end %>
 

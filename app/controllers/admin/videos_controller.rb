@@ -1,11 +1,12 @@
 # 视频管理控制器。只有特定角色能使用本控制器
 class Admin::VideosController < ApplicationController
 
-  before_filter :find_video, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_video, :only => [:show, :edit, :update, :destroy, :rm]
   
   # acl9插件提供的访问控制列表DSL
   access_control do
-    allow :admin
+    allow :admin, :except => :rm
+    allow :owner
   end
   
   def index
@@ -90,6 +91,13 @@ class Admin::VideosController < ApplicationController
       end
     end
     redirect_to admin_videos_path    
+  end
+  
+  # 物理删除视频
+  def rm
+    @video.destroy
+    flash[:notice] = "视频已被物理删除"
+    redirect_to admin_videos_path 
   end
   
 private
