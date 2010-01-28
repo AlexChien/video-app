@@ -2,8 +2,8 @@
 
 <html>
   <head>
-    <title>星尚视频</title>
-      <%= stylesheet_link_tag 'blueprint/screen', 'video', :media => "screen", :cache => true %>
+    <title><%= CONFIG['app_name'] %></title>
+      <%= stylesheet_link_tag 'blueprint/screen', 'blueprint/plugins/fancy-type/screen', 'video', :media => "screen", :cache => true %>
       <%= stylesheet_link_tag 'blueprint/print', :media => "print", :cache => true %>
       <!--[if lt IE 8]>
        <%= stylesheet_link_tag 'blueprint/ie', :media => "screen, projection" %>
@@ -20,7 +20,7 @@
       <%= render 'shared/header' %>
     	
     	<!-- 主体 开始 -->
-    	<div id = "main" class="span-19">
+    	<div id = "main" class="span-19 colborder">
 				  <div class = "innertube">  
 				    <% flash.each do |key,value| %>
 				      <div id="flash" class="flash_<%= key %>" >
@@ -42,6 +42,7 @@
       <!-- 主体 开始 -->
       
       <%= render 'shared/sidebar' %>
+      <hr />
       <%= render 'shared/footer' %>
 		  
 		</div>

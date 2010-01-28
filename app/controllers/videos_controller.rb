@@ -50,8 +50,9 @@ class VideosController < ApplicationController
   # 下载文件，通过webserver的x sendfile直接发送文件
   # TODO 可在此完善下载计数器
   # TODO 下载的是原文件名的新文件
-  # SEND_FILE_METHOD = :default # 配置webserver
-  SEND_FILE_METHOD = :nginx # 配置webserver为nginx，nginx需要相应配置X-Sendfile
+  # SEND_FILE_METHOD = 'default' # 配置webserver
+  # SEND_FILE_METHOD = 'nginx' # 配置webserver为nginx，nginx需要相应配置X-Sendfile
+  SEND_FILE_METHOD = CONFIG['web_server']
   def download
     head(:not_found) and return if (video = Video.find_by_id(params[:id])).nil?
     head(:forbidden) and return unless video.downloadable?(current_user)
@@ -61,8 +62,8 @@ class VideosController < ApplicationController
     send_file_options = { :type => File.mime_type?(path) }
 
     case SEND_FILE_METHOD
-    when :apache then send_file_options[:x_sendfile] = true
-    when :nginx then head(:x_accel_redirect => path.gsub(Rails.root, ''), :content_type => send_file_options[:type]) and return
+    when 'apache' then send_file_options[:x_sendfile] = true
+    when 'nginx' then head(:x_accel_redirect => path.gsub(Rails.root, ''), :content_type => send_file_options[:type]) and return
     end
 
     send_file(path, send_file_options)

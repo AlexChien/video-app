@@ -5,8 +5,8 @@
 # Make sure the secret is at least 30 characters and all random, 
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
-  :session_key => '_ey_videoapp_session',
-  :secret      => 'a29be8f90992b46b2bdff04733702249282b25361df793ccf607e60496b44dd6a2130fb400f164340cd5b405c1716c258c707f1d8fe86ca43e97cd1ef63447fe'
+  :session_key => CONFIG['session']['session_key'],
+  :secret      => CONFIG['session']['secret']
 }
 
 # Use the database for sessions instead of the cookie-based default,

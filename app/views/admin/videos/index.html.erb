@@ -1,5 +1,8 @@
 <!-- 管理视频 首页 开始 -->
 
+<h2>管理视频</h2>
+<hr />
+
 <div class="prepend-1 span-18">
 <%= link_to "全部视频", admin_videos_path %>
 <%= link_to "待审核视频", admin_videos_path(:state => 'pending') %>
@@ -11,12 +14,12 @@
 <%= link_to "编码出错视频", admin_videos_path(:state => 'error') %>
 <%= link_to "已取消视频", admin_videos_path(:state => 'canceled') %>
 <%= link_to "已删除视频", admin_videos_path(:state => 'soft_deleted') %>
-<hr />
 </div>
-
-<h1>管理视频</h1>
+<hr class="space"/>
+<hr />
 
 <div class="span-19"><%= will_paginate @videos %></div>
+<hr class="space"/>
 
 <% @videos.each do |video| %>
 <div class="prepend-1 span-3">
@@ -40,4 +43,5 @@
 <% end %>
 
 <div class="span-19"><%= will_paginate @videos, :class => "pagination page-wide" %></div>
+<hr class="space"/>
 <!-- 管理视频 首页 结束 -->

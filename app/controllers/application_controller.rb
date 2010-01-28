@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   
   # 访问了acl9控制的资源而没有权限时引发这个异常，在此捕获处理
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
+  rescue_from 'ActiveRecord::RecordNotFound',:with => :record_not_found
 
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user
@@ -63,6 +64,12 @@ private
       flash[:notice] = '你没有登陆或者没有权限执行此操作。'
       redirect_to login_path
     end
-  end   
+  end
+
+  def record_not_found
+    # render :template => 'shared/404'
+    flash[:notice] = '没有这个东西'
+    redirect_to '/'
+  end
 	
 end

@@ -13,3 +13,5 @@ config/database.yml
 public/thumbnails/
 public/videos/
 assets
+config/app_config.yml
+bk
