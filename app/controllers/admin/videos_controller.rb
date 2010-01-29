@@ -46,12 +46,15 @@ class Admin::VideosController < ApplicationController
     when "重新生成缩略图"
       @video.asset.reprocess!
       flash[:notice] = "缩略图已重新生成"
-    when "中止编码" || "取消审核"
+    when "中止编码"
       @video.cancel!
-      flash[:notice] = "已取消"
+      flash[:notice] = "已中止编码,视频改为待处理状态"
+    when "取消审核"
+      @video.cancel!
+      flash[:notice] = "已取消审核,视频改为待处理状态"
     when "重置视频"
       @video.resume!
-      flash[:notice] = "已更改为待审核状态"
+      flash[:notice] = "已更改为待处理状态"
     when "不需编码"
       @video.cancel!
       @video.resume!

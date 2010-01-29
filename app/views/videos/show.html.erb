@@ -21,22 +21,16 @@
 <span class = "tags">Tagged with: <span><%= @video.tag_list %></span></span>
 <% end %>
 
-<div class="prepend-1">
+<div class="prepend-1"> 
 <% 
-  case @video.state
-  when "converted" || "no_encoding"
-  url = @video.state == "converted" ? @video.asset.url(:transcoded) : @video.asset.url 
+  case @video.state  
+  when "converted"
 %>
-<p id="video">
-  <a  
-  href="<%= url %>"  
-  style="display:block;width:500px;height:375px" 
-  id="player"> </a>
-  <!-- this will install flowplayer inside previous A- tag. -->
-  <script>
-  flowplayer("player", "/flowplayer/flowplayer-3.0.3.swf",{clip:{autoPlay: false, autoBuffering: false}});
-  </script>
-</p>  
+  <% url = @video.asset.url(:transcoded) %>
+  <%= render :partial => "shared/flowplayer", :locals => { :url => url } %>
+<% when "no_encoding" %>
+  <% url = @video.asset.url %>
+  <%= render :partial => "shared/flowplayer", :locals => { :url => url } %>  
 <% when "error" %>
 <div class="error">视频编码错误，请联系管理员</div>	
 <% when "pending" %>
