@@ -13,30 +13,15 @@
 
   <body>
     <!-- 主容器 开始 -->
-    <!-- <div id = "body" class="container showgrid"> -->
-    <%  container = Rails.env.production? ? "container" : "container showgrid" %>
-    <div id = "body" class="<%= container %>">
+    <!-- <div id = "body" class="container showgrid"> --> <%# 有网格背景，调使用 %>
+    <div id = "body" class="container">          <%# 无网格背景 %>
+    <%  container = Rails.env.production? ? "container" : "container showgrid" %>    
+    <!-- <div id = "body" class="<%= container %>"> -->
 
       <%= render 'shared/header' %>
     	
     	<!-- 主体 开始 -->
-    	<div id = "main" class="span-19 colborder">
-				  <div class = "innertube">  
-				    <% flash.each do |key,value| %>
-				      <div id="flash" class="flash_<%= key %>" >
-				        <span class="message"><%= value %></span>
-				      </div>
-							<br />
-				    <% end -%>
-
-            <div id="notice" style="color: green">
-              <%= flash[:notice] %>
-            </div>
-            <div id="error" style="color: red">
-              <%= flash[:error] %>
-            </div>						
-					</div>
-					
+    	<div id = "main" class="span-19 colborder">					
 				  <%= yield :layout %>
 			</div>
       <!-- 主体 开始 -->

@@ -2,35 +2,49 @@
 
 <%= javascript_include_tag 'flowplayer' %>
 
-<h1>审核、编辑视频</h1>
+<h2>审核、编辑视频</h2>
+<hr />
 
 <div class="span-12">
 <%= link_to "返回该视频显示页", video_path(@video) %> | 
 <%= link_to "返回该视频管理首页", admin_video_path(@video) %>
 </div>
+<% if current_user && current_user.has_role?('owner') %>
+<div class="button">
+  <%= link_to("物理删除该视频", rm_admin_video_path(@video), 
+              :confirm => '物理删除该视频？删除后不可恢复！', :method => :delete) %>
+</div>
+<% end %>
+<hr class="space" />
 
 <div class="span-12">
 <% form_for @video, :url => admin_video_path do |f| %>
   <%= f.error_messages %>
   <%#= render :partial => "form", :object => f %>
-  <div class="span-1"><%= f.label :title,'标题' %>: </div>
-  <div class="span-11"><%= f.text_field :title %></div>
-  <div class = "author span-12">
-    <%= link_to @video.user.login, @video.user %> 上传于 <%= @video.created_at.to_s(:db) %>
-  </div>  
-  <div class="span-2">当前状态: </div>
-  <div class="span-9"><%= @video.state %></div>
-  <div class="span-1"><%= f.label :description,'描述' %>:</div> 
-  <div class="span-11"><%= f.text_area :description %></div>
-  <div class="span-12">视频截图:<br/>
-    <%= image_tag @video.asset.url(:medium), :alt => @video.filename %>
-  </div>  
+  <h3 class="alt"><%= f.label :title,'标题' %>: </h3>
+  <%= f.text_field :title, :size => 70 %>
+  <hr class="space" />
+  
+  <%= link_to @video.user.login, @video.user %> 上传于 <%= @video.created_at.to_s(:db) %>
+  <hr class="space" />  
+  
+  <h3 class="alt">当前状态: </h3>
+  <%= t(@video.state) %>
+  <hr class="space" />  
+  
+  <h3 class="alt">视频截图:</h3>
+  <%= image_tag @video.asset.url(:medium), :alt => @video.filename %>
+  <hr class="space" />  
+  
+  <h3 class="alt"><%= f.label :description,'描述' %>:</h3>
+  <%= f.text_area :description %> 
+  
   <% if false %>
-  <div class="span-1"><%= f.label :tags %>: </div>
-  <div class="span-11"><%= f.text_field :tag_list %></div>
+  <h3 class="alt"><%= f.label :tags %>: </h3>
+  <%= f.text_field :tag_list %>
   <% end %>
+  
   <div class="span-12">
-
   <%= f.submit "提交更新" %> |
   <% if @video.state=="pending" %>
   <%= f.submit "审核通过" %> | 
@@ -50,24 +64,12 @@
   <% else %>
   <%= link_to("删除该视频", admin_video_path(@video), :confirm => '删除该视频?', :method => :delete) %>
   <% end %>
-  <% if current_user && current_user.has_role?('owner') %>
-  <%= link_to("物理删除该视频", rm_admin_video_path(@video), 
-              :confirm => '物理删除该视频?', :method => :delete) %>
-  <% end %>
-  
   </div>
 <% end %>
-
-<div class="span-12">
-<%= link_to "返回该视频显示页", video_path(@video) %> | 
-<%= link_to "返回该视频管理首页", admin_video_path(@video) %>
 </div>
-
-</div>
-
 
 <div class="span-6">
-  <h2>原始视频详细参数</h2>
+  <h3 class="alt">原始视频详细参数</h3>
   <hr />
   <div class="span-2">时长：</div> 
   <div class="span-3">
@@ -85,11 +87,10 @@
   <hr /><div class="span-2">音频采样率：</div> <div class="span-3"><%= @video.audio_sample_rate %></div>
 </div>
 
-
+<hr class="space" />
 <div class="span-18">
-  播放原始视频：（仅当原始视频格式被支持时可用）
-  <p>
-    <a  
+  <h3 class="alt">播放原始视频：（仅当原始视频格式被支持时可用）</h3>
+  <a  
     href="<%= @video.asset.url %>"  
     style="display:block;width:500px;height:375px" 
     id="player"> 
@@ -99,29 +100,23 @@
   <script>
   flowplayer("player", "/flowplayer/flowplayer-3.0.3.swf",{clip:{autoPlay: false, autoBuffering: false}});
   </script>
-</p>
+  <hr class="space" />
 </div>
 
 
 <% if @video.state == "converted" %>
 <div class = "span-18">
-  播放编码后的视频：
-  
+  <h3 class="alt">播放编码后的视频：</h3>
   <%= "进入编码队列于：" + @video.queued_at.to_s(:db) if @video.queued_at %>
-  <br />
   <%= "开始编码于：" + @video.started_encoding_at.to_s(:db) if @video.started_encoding_at %>
-  <br />
-  <%= "结束编码于：" + @video.encoded_at.to_s(:db) if @video.encoded_at %>
-  <br />
+  <%= "结束编码于：" + @video.encoded_at.to_s(:db) if @video.encoded_at %><hr class="space" />
   <% if time = @video.encoding_time %>
   完成编码总用： 
   <%= "#{time.hour}小时" unless time.hour == 0 %>
   <%= "#{time.min}分" unless time.min == 0 %>
   <%= "#{time.sec}秒" %>
   <% end %>  
-
-  <p>
-    <a  
+  <a  
     href   = "<%= @video.asset.url(:transcoded) %>"  
     style  = "display:block;width:500px;height:375px" 
     id     = "encoded_player"> 
@@ -131,7 +126,13 @@
   <script>
   flowplayer("encoded_player", "/flowplayer/flowplayer-3.0.3.swf",{clip:{autoPlay: false, autoBuffering: false}});
   </script>
-</p>
+  <hr class="space" />
 </div>			
 <% end %>
+
+<div class="span-12">
+<%= link_to "返回该视频显示页", video_path(@video) %> | 
+<%= link_to "返回该视频管理首页", admin_video_path(@video) %>
+</div>
+<hr class="space" />
 <!-- 审核、编辑视频 结束 -->

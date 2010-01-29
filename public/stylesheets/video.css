@@ -1,14 +1,22 @@
 #header
 {
-	/*background: #f07c01 none repeat scroll 0 0;*/
+/*background: #f07c01 none repeat scroll 0 0;*/
 /*  background-image: url(/images/header.png);*/
 /*  padding: 10px 4%;*/
 /*  border-bottom: 3px solid #5555a5;*/
 /*	height: 75px;
   padding-bottom: 0;
   padding-top: 8px;*/
-	
+  display:inline;
 }
+
+.logo{
+	font-family: "Courier New", Courier, mono;
+	font-weight: bold;
+}
+
+.notice{display:inline;color:green;}
+.error{display:inline;color:red;}
 
 #logo
 {
@@ -36,6 +44,9 @@
   color: red;*/
 }
 
+#footer{
+  text-align: right;
+}
 
 .pagination {
   padding: 3px;
@@ -66,3 +77,35 @@
   border: 1px solid #eee;
   color: #ddd;
 }
+
+.button {
+  padding: 3px;
+  margin: 3px;
+  text-align:right;
+}
+.button a {
+  padding: 2px 5px 2px 5px;
+  margin: 2px;
+  border: 1px solid #aaaadd;
+  text-decoration: none;
+  color: #000099;
+}
+.button a:hover, .pagination a:active {
+  border: 1px solid #000099;
+  color: #000;
+}
+.button span.current {
+  padding: 2px 5px 2px 5px;
+  margin: 2px;
+  border: 1px solid #000099;
+  font-weight: bold;
+  background-color: #A7A37E;
+  color: #FFF;
+}
+.button span.disabled {
+  padding: 2px 5px 2px 5px;
+  margin: 2px;
+  border: 1px solid #eee;
+  color: #ddd;
+}
+

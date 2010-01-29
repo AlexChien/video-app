@@ -112,6 +112,25 @@ zh-CN:
         odd: "必须为单数"
         even: "必须为双数"
 
+  login: "登陆"
+  login_account: "登陆账号"
+  password: "密码"
+  remember_me: "记住登陆状态"
+  notice: "注意"
+  error: "出错啦"
+  confirm_logout: "真要登出吗?"
+  
+
+  publiced: "已发布"
+  pending: "待处理"
+  audited: "已审核"
+  no_encoding: "不需编码"
+  queued_up: "已进入编码队列"
+  converting: "正在编码中"
+  converted: "已编码"
+  # error: "编码出错"
+  canceled: "已取消"
+  soft_deleted: "已删除"
 
 #   authlogic:
 #     error_messages:

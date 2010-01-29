@@ -1,8 +1,33 @@
 <!-- 页头 开始 -->
 <hr class="space" />
-<h1 id = "header" style="display:inline;"><a href = "/"><%= CONFIG['app_name'] %></a></h1>
-<span class="alt"><%= CONFIG['descp'] %></span>
+<h1 id = "header">
+  <a href = "/" class='logo'><%= CONFIG['app_name'] %></a>
+</h1>
+<div class="append-1" style="display:inline;">
+  <span class="alt"><%= CONFIG['descp'] %></span>
+</div>
+<% if flash[:notice] %>
+<div class="notice">
+  <%= t('notice') + ":" + flash[:notice] %>
+</div>
+<% elsif flash[:error] %>
+<div class="error">
+  <%= t('error')  + ":" + flash[:error] %>
+</div>
+<% end %>
+
+<% if false %>
+<div class = "innertube">  
+  <% flash.each do |key,value| %>
+  <div id="flash" class="flash_<%= key %>" >
+    <span class="message"><%= value %></span>
+  </div>
+  <br />
+  <% end -%>
+</div>
+<div class="prepend-12 span-6 last"><input id = "search" type = "text" value = "搜索视频"/></div>
+<% end %>
+
 <hr class="space" />
 <hr />
-<!-- <div class="prepend-12 span-6 last"><input id = "search" type = "text" value = "搜索视频"/></div> -->
 <!-- 页头 结束 -->
