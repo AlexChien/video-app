@@ -3,7 +3,7 @@ log/*
 tmp/*
 .project
 .idea
-。metadata/*
+.metadata/*
 _notes/*
 _notes
 Thumbs.db
