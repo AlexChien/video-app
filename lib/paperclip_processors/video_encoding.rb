@@ -51,14 +51,17 @@ module Paperclip
       recipe += "-f flv " # 视频格式
       recipe += "-b 300000 " # 视频码率 $video_bitrate_in_bits$
       recipe += "-r 24 " # 帧速率 $fps$
-      recipe += "-s $resolution$ " # 尺寸 宽x高 $resolution$
+      # recipe += "-s $resolution$ " # 尺寸 宽x高 $resolution$
+      recipe += "-s 500x376 " # 尺寸 宽x高 $resolution$
       recipe += "-y $output_file$ " # 输出文件路径
       recipe += "\nflvtool2 -U $output_file$"
       begin
 # debugger
+        # transcoder.execute(recipe, {:input_file => input_file_path,
+        #                             :output_file => output_file_path,
+        #                             :resolution => "500x376"})
         transcoder.execute(recipe, {:input_file => input_file_path,
-                                    :output_file => output_file_path,
-                                    :resolution => "500x376"})
+                                    :output_file => output_file_path})
       rescue
         raise  "There was an error encoding the flv for #{@basename}" if whiny
       end
