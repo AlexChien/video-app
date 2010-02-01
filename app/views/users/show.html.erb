@@ -14,7 +14,7 @@
   <%= link_to truncate(video.title, 28), video_path(video) %>
   <br />  
   <%= link_to video.user.login, user_path(video.user) %> 上传于:
-  <br />  
+  <br />
   <%= video.created_at.to_s(:db) %>
   <hr class="space" />  
 </div>

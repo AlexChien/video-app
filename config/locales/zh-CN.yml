@@ -124,6 +124,12 @@ zh-CN:
   login_successful: "成功登陆"
   logout_successful: "成功退出"
   confirm_logout: "真要登出吗?"
+  login_count: "登陆次数"
+  last_request_at: "上次请求于"
+  last_login_at: "上次登陆于"
+  current_login_at: "本次登陆于"
+  last_login_ip: "上次登陆IP地址"
+  current_login_ip: "本次登陆IP地址"
   
 
   publiced: "已发布"
