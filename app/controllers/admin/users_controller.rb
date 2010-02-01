@@ -19,7 +19,18 @@ class Admin::UsersController < ApplicationController
                                :per_page => 6)
     end
   end
+
   def show
+    @user = @current_user
+    if params[:state]
+      @videos = @user.videos.being(params[:state]).paginate(:page => params[:page], 
+                                                     :order => 'created_at DESC', 
+                                                     :per_page => 6)
+    else
+      @videos = @user.videos.paginate(:page => params[:page], 
+                               :order => 'created_at DESC', 
+                               :per_page => 6)
+    end    
   end
 
   def edit

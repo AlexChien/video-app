@@ -16,7 +16,18 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.xml
   def show
-    @user = @current_user
+    unless @user = User.find(params[:id])
+      @user = @current_user
+    end
+    if params[:state]
+      @videos = @user.videos.being(params[:state]).paginate(:page => params[:page], 
+                                                     :order => 'created_at DESC', 
+                                                     :per_page => 6)
+    else
+      @videos = @user.videos.paginate(:page => params[:page], 
+                               :order => 'created_at DESC', 
+                               :per_page => 6)
+    end        
   end
 
   # GET /users/new

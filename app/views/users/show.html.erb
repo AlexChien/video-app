@@ -1,44 +1,29 @@
 <!-- 我的视频信息页 开始 -->
 
-<h2>我的视频信息</h2>
+<!-- 我的视频列表 开始 -->
+<h2><%= @user.login %>的视频列表</h2>
 <hr />
 
-<p>
-  <b>Login:</b>
-  <%=h @user.login %>
-</p>
+<div class="span-24"><%= will_paginate @videos %></div>
+<hr class="space"/>
 
-<p>
-  <b>Login count:</b>
-  <%=h @user.login_count %>
-</p>
+<% @videos.each do |video| %>
+<div class="prepend-1 span-5">
+  <%= link_to (image_tag video.asset.url(:small), :alt => video.filename), video_path(video) %>
+  <br />
+  <%= link_to truncate(video.title, 28), video_path(video) %>
+  <br />  
+  <%= link_to video.user.login, user_path(video.user) %> 上传于:
+  <br />  
+  <%= video.created_at.to_s(:db) %>
+  <hr class="space" />  
+</div>
+<% end %>
 
-<p>
-  <b>Last request at:</b>
-  <%=h @user.last_request_at %>
-</p>
-
-<p>
-  <b>Last login at:</b>
-  <%=h @user.last_login_at %>
-</p>
-
-<p>
-  <b>Current login at:</b>
-  <%=h @user.current_login_at %>
-</p>
-
-<p>
-  <b>Last login ip:</b>
-  <%=h @user.last_login_ip %>
-</p>
-
-<p>
-  <b>Current login ip:</b>
-  <%=h @user.current_login_ip %>
-</p>
-
+<div class="span-24"><%= will_paginate @videos, :class => "pagination page-wide" %></div>
+<hr class="space"/>
+<!-- 视频列表 结束 -->
 
 <%= link_to 'Edit', edit_account_path %>
 <hr class="space"/>
-<!-- 我的视频信息页 结束 -->
+<!-- 我的视频列表 结束 -->
