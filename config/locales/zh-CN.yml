@@ -113,11 +113,16 @@ zh-CN:
         even: "必须为双数"
 
   login: "登陆"
+  register: "注册"
   login_account: "登陆账号"
   password: "密码"
+  change_password: "修改密码"
+  confirm_password: "确认密码"
   remember_me: "记住登陆状态"
   notice: "注意"
   error: "出错啦"
+  login_successful: "成功登陆"
+  logout_successful: "成功退出"
   confirm_logout: "真要登出吗?"
   
 
