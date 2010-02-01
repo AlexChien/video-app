@@ -1,20 +1,26 @@
 <!-- 页头 开始 -->
 <hr class="space" />
-<h1 id = "header">
-  <a href = "/" class='logo'><%= CONFIG['app_name'] %></a>
-</h1>
-<div class="append-1" style="display:inline;">
-  <span class="alt"><%= CONFIG['descp'] %></span>
+<div class="span-18">
+  <h1 id = "header">
+    <a href = "/" class='logo'><%= CONFIG['app_name'] %></a>
+  </h1>
+  <div class="append-1" style="display:inline;">
+    <span class="alt"><%= CONFIG['descp'] %></span>
+  </div>
+  <% if flash[:notice] %>
+  <div class="notice" style="display:inline;">
+    <%= t('notice') + ":" + flash[:notice] %>
+  </div>
+  <% elsif flash[:error] %>
+  <div class="error" style="display:inline;">
+    <%= t('error')  + ":" + flash[:error] %>
+  </div>
+  <% end %>
 </div>
-<% if flash[:notice] %>
-<div class="notice">
-  <%= t('notice') + ":" + flash[:notice] %>
+
+<div class="append-2 span-4 button" style="display:inline;">
+  <%= link_to '上传新视频', new_video_url, :class => 'new' %>
 </div>
-<% elsif flash[:error] %>
-<div class="error">
-  <%= t('error')  + ":" + flash[:error] %>
-</div>
-<% end %>
 
 <% if false %>
 <div class = "innertube">  

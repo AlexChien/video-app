@@ -1,3 +1,4 @@
+<!-- 新建视频 开始 -->
 <%= stylesheet_link_tag 'uploadify' %>
 <%= javascript_include_tag 'jquery.uploadify', 'swfobject' %>
 
@@ -40,13 +41,16 @@ function add_video_info(){
 }
 // ]]></script>
 
-<h2>新建视频</h2><br />
+<h2>新建视频</h2>
+<hr />
 
+<%# TODO 增加前端表单验证 %>
 <% form_for(@video, :html => { :multipart => true }) do |f| %>
   <%= f.error_messages %>
   <table>
     <tr>
-      <td><%= f.label :title,'标题' %>: </td><td><%= f.text_field :title %></td>
+      <td><%= f.label :title,'标题' %>: </td>
+      <td><%= f.text_field :title, :class => 'title' %></td>
     </tr>
     <tr>
       <td><%= f.label :description,'描述' %>: </td><td><%= f.text_area :description %></td>
@@ -79,3 +83,4 @@ function add_video_info(){
   </table>
 
 <% end %>
+<!-- 新建视频 结束 -->

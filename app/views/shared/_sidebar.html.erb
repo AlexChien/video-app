@@ -8,7 +8,7 @@
   <% end %>
   
   <div class = "innertube">	
-    <%= link_to '上传新视频', new_video_url, :class => 'new' %><br /><br />
+    <%#= link_to '上传新视频', new_video_url, :class => 'new' %><br /><br />
     <% if !current_user %>
     <%= link_to "注册", new_account_path %><br />
     <%= link_to "登陆", new_user_session_path %><br />

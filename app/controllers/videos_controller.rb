@@ -19,6 +19,7 @@ class VideosController < ApplicationController
   end
 
   def new
+    flash[:notice] = "上传视频文件不能超过#{CONFIG['max_upload_file_size']}MB"
     @video = Video.new
   end
 

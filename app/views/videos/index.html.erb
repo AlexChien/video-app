@@ -1,5 +1,5 @@
+<!-- 视频列表 开始 -->
 <h2>视频列表</h2>
-
 <hr />
 
 <div class="span-24"><%= will_paginate @videos %></div>
@@ -8,14 +8,13 @@
 <% @videos.each do |video| %>
 <div class="prepend-1 span-5">
   <a href = "<%= video_url(video) %>" class = "video_thumb">
-    <%#= video.thumbnail ? image_tag(video.thumbnail.public_filename) : "No Thumbnail Available" %>
     <%= image_tag video.asset.url(:small), :alt => video.filename %>
-    <p><%= video.title %></p>
-    <p><%= video.user.login %> 上传</p>
+    <p><%= truncate(video.title, 28) %></p>
   </a>
+  <p><%= link_to video.user.login, user_path(video.user) %> 上传</p>  
 </div>
 <% end %>
 
 <div class="span-24"><%= will_paginate @videos, :class => "pagination page-wide" %></div>
 <hr class="space"/>
-
+<!-- 视频列表 结束 -->

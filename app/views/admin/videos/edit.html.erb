@@ -1,7 +1,4 @@
 <!-- 审核、编辑视频 开始 -->
-
-<%= javascript_include_tag 'flowplayer' %>
-
 <h2>审核、编辑视频</h2>
 <hr />
 
@@ -22,7 +19,7 @@
   <%= f.error_messages %>
   <%#= render :partial => "form", :object => f %>
   <h3 class="alt"><%= f.label :title,'标题' %>: </h3>
-  <%= f.text_field :title, :size => 70 %>
+  <%= f.text_field :title, :class => 'title' %>
   <hr class="space" />
   
   <%= link_to @video.user.login, @video.user %> 上传于 <%= @video.created_at.to_s(:db) %>
@@ -90,16 +87,8 @@
 <hr class="space" />
 <div class="span-18">
   <h3 class="alt">播放原始视频：（仅当原始视频格式被支持时可用）</h3>
-  <a  
-    href="<%= @video.asset.url %>"  
-    style="display:block;width:500px;height:375px" 
-    id="player"> 
-  </a> 
-
-  <!-- this will install flowplayer inside previous A- tag. -->
-  <script>
-  flowplayer("player", "/flowplayer/flowplayer-3.0.3.swf",{clip:{autoPlay: false, autoBuffering: false}});
-  </script>
+  <% url = @video.asset.url %>
+  <%= render :partial => "shared/flowplayer", :locals => { :url => url, :player_id => "org_player" } %> 
   <hr class="space" />
 </div>
 
@@ -115,17 +104,9 @@
   <%= "#{time.hour}小时" unless time.hour == 0 %>
   <%= "#{time.min}分" unless time.min == 0 %>
   <%= "#{time.sec}秒" %>
-  <% end %>  
-  <a  
-    href   = "<%= @video.asset.url(:transcoded) %>"  
-    style  = "display:block;width:500px;height:375px" 
-    id     = "encoded_player"> 
-  </a> 
-
-  <!-- this will install flowplayer inside previous A- tag. -->
-  <script>
-  flowplayer("encoded_player", "/flowplayer/flowplayer-3.0.3.swf",{clip:{autoPlay: false, autoBuffering: false}});
-  </script>
+  <% end %>
+  <% url = @video.asset.url(:transcoded) %>
+  <%= render :partial => "shared/flowplayer", :locals => { :url => url, :player_id => "encoded_player" } %>
   <hr class="space" />
 </div>			
 <% end %>
