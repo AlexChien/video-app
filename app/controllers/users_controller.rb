@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   # GET /users.xml
   def index
     @users = User.find(:all)
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @users }
@@ -16,8 +15,10 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.xml
   def show
-    unless @user = User.find(params[:id])
-      @user = @current_user
+    unless params[:id]
+      @user = current_user
+    else
+      @user = User.find(params[:id])
     end
     if params[:state]
       @videos = @user.videos.being(params[:state]).paginate(:page => params[:page], 

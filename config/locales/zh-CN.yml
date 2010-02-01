@@ -148,7 +148,10 @@ zh-CN:
   audio_codec: "音频编码解码器"  
   audio_bitrate: "音频码率"  
   audio_sample_rate: "音频采样率" 
-  position: "位置" 
+  position: "位置"
+
+  previous_page: "上一页"
+  next_page: "下一页"
 
 #   authlogic:
 #     error_messages:

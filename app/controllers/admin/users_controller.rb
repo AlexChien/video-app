@@ -21,8 +21,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    unless @user = User.find(params[:id])
-      @user = @current_user
+    unless params[:id]
+      @user = current_user
+    else
+      @user = User.find(params[:id])
     end
     if params[:state]
       @videos = @user.videos.being(params[:state]).paginate(:page => params[:page], 
