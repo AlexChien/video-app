@@ -58,7 +58,7 @@ module Paperclip
 # debugger
         transcoder.execute(recipe, {:input_file => input_file_path,
                                     :output_file => output_file_path,
-                                    :resolution => "500x375"})
+                                    :resolution => "500x376"})
       rescue
         raise  "There was an error encoding the flv for #{@basename}" if whiny
       end
