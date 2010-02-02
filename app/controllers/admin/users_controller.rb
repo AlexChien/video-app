@@ -1,6 +1,8 @@
 # 用户管理控制器。只有特定角色能使用本控制器
 class Admin::UsersController < ApplicationController
   
+  layout 'users'
+  
   # acl9插件提供的访问控制列表DSL
   access_control do
     allow :admin
@@ -18,6 +20,11 @@ class Admin::UsersController < ApplicationController
                                :order => 'created_at DESC', 
                                :per_page => 6)
     end
+    unless params[:id]
+      @user = current_user
+    else
+      @user = User.find(params[:id])
+    end    
   end
 
   def show
@@ -39,6 +46,20 @@ class Admin::UsersController < ApplicationController
 
   def edit
   end
+
+  def add
+    @role=Role.find(params[:role_id])
+    @user=User.find(params[:id])
+    @user.has_role!(@role.name)
+    redirect_to admin_role_path(@role)
+  end
+  
+  def mv
+    @role=Role.find(params[:role_id])
+    @user=User.find(params[:id])
+    @user.has_no_role!(@role.name)
+    redirect_to admin_role_path(@role)       
+  end  
 
   def update
     case  params[:commit]

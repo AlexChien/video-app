@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   # 访问了acl9控制的资源而没有权限时引发这个异常，在此捕获处理
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
   rescue_from 'ActiveRecord::RecordNotFound',:with => :record_not_found
+  rescue_from 'ActionController::MethodNotAllowed',:with => :record_not_found
 
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user

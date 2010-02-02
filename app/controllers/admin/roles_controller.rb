@@ -19,7 +19,13 @@ class Admin::RolesController < ApplicationController
                                :per_page => 6)
     end
   end
+
   def show
+    @role=Role.find(params[:id])
+    @users_in_role = @role.users.find(:all, :select => "id, login")
+    all_user = User.find(:all, :select => "id, login")
+    @users_out_role = ( all_user - @users_in_role).paginate(:page => params[:page],
+                                      :order => 'created_at DESC', :per_page => 6) 
   end
 
   def edit

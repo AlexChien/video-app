@@ -1,4 +1,4 @@
-<% if current_user && (current_user.login == @user.login || current_user.has_role?('admin')) %>
+<% if current_user && (current_user.has_role?('admin') || current_user.login == @user.login) %>
 <!-- 用户信息栏 开始 -->
 <h3 class="alt"><%= @user.login %>的账号信息</h3>
 
@@ -12,7 +12,7 @@
 <%=h @user.last_request_at.to_s(:db) %>
 <br />
 <b><%= t("last_login_at") %>:</b><br />
-<%=h @user.last_login_at.to_s(:db) %>
+<%=h (@user.last_login_at ? @user.last_login_at.to_s(:db) : t("first_login")) %>
 <br />
 <b><%= t("current_login_at") %>:</b><br />
 <%=h @user.current_login_at.to_s(:db) %>

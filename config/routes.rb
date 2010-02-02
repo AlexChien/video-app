@@ -12,6 +12,9 @@ ActionController::Routing::Routes.draw do |map|
     # Directs /admin/profiles/* to Admin::ProfilesController (app/controllers/admin/profiles_controller.rb)
     admin.resources :users
     admin.resources :roles
+    admin.resources :roles do |role|
+      role.resources :users, :member => { :add => :put, :mv => :delete }
+    end
     admin.resources :profiles
     admin.resources :videos, :member => { :rm => :delete }
   end  
