@@ -5,7 +5,8 @@ default: &default
   time_zone: Beijing
   default_locale: zh-CN  
   web_server: default # default 开发用， apache， nginx  
-  max_upload_file_size: 100 # 上传文件最大尺寸，单位MB  
+  max_upload_file_size: 100 # 上传文件最大尺寸，单位MB
+  gravatar: "on" # on or off  
   session:
     session_key: _shadowgraph_session
     secret: 2250b8c4c89afc69b8491fb008c02bf8e704bbf0d601e9765cef68f747372315f37849c12c2318447fdecdccb40d76524374c3af9e4254f4e8eac245e0d942d8

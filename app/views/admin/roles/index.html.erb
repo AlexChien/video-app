@@ -6,6 +6,7 @@
 </div>
 <hr />
 
+<% if false %>
 <div class="prepend-1 span-18">
 <%= link_to "全部角色", admin_roles_path %>
 <%= link_to "待审核角色", admin_roles_path(:state => 'pending') %>
@@ -19,6 +20,7 @@
 </div>
 <hr class="space"/>
 <hr />
+<% end %>
 
 <div class="span-19"><%= will_paginate @roles %></div>
 <hr class="space"/>

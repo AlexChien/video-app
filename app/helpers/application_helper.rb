@@ -9,5 +9,13 @@ module ApplicationHelper
   end
 
   alias_method_chain :will_paginate, :i18n
+  
+  def avatar_for(user)
+    if CONFIG['gravatar'] == 'on'
+      user.email ? gravatar_for(user) : "<img src='/images/avatar.jpg' alt='#{user.login}’s avatar'>"
+    else
+      "你的本地头像管理方案"
+    end
+  end
 
 end

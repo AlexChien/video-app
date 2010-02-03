@@ -1,7 +1,9 @@
 <% if current_user && (current_user.has_role?('admin') || current_user.login == @user.login) %>
 <!-- 用户信息栏 开始 -->
 <h3 class="alt"><%= @user.login %>的账号信息</h3>
-
+<b>头像:</b><br />
+<%= avatar_for @user %>
+<br />
 <b><%= t("login_account") %>:</b><br />
 <%=h @user.login %>
 <br />

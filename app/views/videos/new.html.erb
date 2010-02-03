@@ -50,10 +50,11 @@ function add_video_info(){
   <table>
     <tr>
       <td><%= f.label :title,'标题' %>: </td>
-      <td><%= f.text_field :title, :class => 'title' %></td>
+      <td><%= f.text_field :title, :class => 'title span-10' %></td>
     </tr>
     <tr>
-      <td><%= f.label :description,'描述' %>: </td><td><%= f.text_area :description %></td>
+      <td><%= f.label :description,'描述' %>: </td>
+      <td><%= f.text_area :description, :class => 'span-10'%></td>
     </tr>
 <% if false %>
     <tr>

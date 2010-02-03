@@ -19,7 +19,7 @@
   <%= f.error_messages %>
   <%#= render :partial => "form", :object => f %>
   <h3 class="alt"><%= f.label :title,'标题' %>: </h3>
-  <%= f.text_field :title, :class => 'title' %>
+  <%= f.text_field :title, :class => 'title span-10' %>
   <hr class="space" />
   
   <%= link_to @video.user.login, @video.user %> 上传于 <%= @video.created_at.to_s(:db) %>
@@ -34,7 +34,7 @@
   <hr class="space" />  
   
   <h3 class="alt"><%= f.label :description,'描述' %>:</h3>
-  <%= f.text_area :description %> 
+  <%= f.text_area :description, :class => "span-10" %> 
   
   <% if false %>
   <h3 class="alt"><%= f.label :tags %>: </h3>

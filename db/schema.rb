@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100125040711) do
+ActiveRecord::Schema.define(:version => 20100203022922) do
 
   create_table "profiles", :force => true do |t|
     t.string   "title",             :limit => 40
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20100125040711) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
+    t.string   "email"
   end
 
   create_table "video_replies", :force => true do |t|

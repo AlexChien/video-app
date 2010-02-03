@@ -113,6 +113,7 @@ zh-CN:
         even: "必须为双数"
 
   login: "登陆"
+  email: "电子邮件"
   register: "注册"
   login_account: "登陆账号"
   password: "密码"
