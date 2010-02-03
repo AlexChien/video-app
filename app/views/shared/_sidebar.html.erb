@@ -1,5 +1,5 @@
 <!-- 侧边栏 开始 -->
-<div id = "sidebar" class="span-4 last">
+<div id = "sidebar" class="lcolborder span-3 last">
   <% if current_user && current_user.has_role?('admin') %>
   <%= link_to "管理视频", admin_videos_path(:state => 'pending') %>  <br />
   <%= link_to "管理用户", admin_users_path %>  <br />
@@ -16,6 +16,7 @@
   <%= link_to "注销", user_session_path, :method => :delete, :confirm => t("confirm_logout") %>
   <hr class="space" />
   <% end %>
+
 
 <% if false %>
   <p><%= pluralize User.logged_in.count, "user" %> currently logged in.</p><br /> <!-- This based on last_request_at, if they were active < 10 minutes they are logged in -->

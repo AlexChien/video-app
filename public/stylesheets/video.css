@@ -4,6 +4,9 @@
 
 div.lborder {padding-left:4px;margin-left:5px;border-left:1px solid #eee;}
 div.lcolborder {padding-left:24px;margin-left:25px;border-left:1px solid #eee;}
+.center{
+	text-align:center;margin:auto;
+}
 
 #header
 {
