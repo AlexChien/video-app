@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       @videos = @user.videos.paginate(:page => params[:page], 
                                :order => 'created_at DESC', 
                                :per_page => 6)
-    end        
+    end  
   end
 
   # GET /users/new

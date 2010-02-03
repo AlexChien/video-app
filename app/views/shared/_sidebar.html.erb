@@ -1,5 +1,5 @@
 <!-- 侧边栏 开始 -->
-<div id = "sidebar" class="lcolborder span-3 last">
+<!-- <div id = "sidebar" class="lcolborder span-4 last">    -->
   <% if current_user && current_user.has_role?('admin') %>
   <%= link_to "管理视频", admin_videos_path(:state => 'pending') %>  <br />
   <%= link_to "管理用户", admin_users_path %>  <br />
@@ -18,15 +18,15 @@
   <% end %>
 
 
-<% if false %>
+  <% if false %>
   <p><%= pluralize User.logged_in.count, "user" %> currently logged in.</p><br /> <!-- This based on last_request_at, if they were active < 10 minutes they are logged in -->
 
-<div id = "tagcloud">
-  <%# tag_cloud @tag_cloud, %w(css1 css2 css3 css4) do |tag, css_class| %>
-  <%#= link_to tag.name, '/tags/'  + tag.name , :class => css_class %>
-  <%# end %>
-</div><!-- /tagcloud -->
-<% end %>
+  <div id = "tagcloud">
+    <%# tag_cloud @tag_cloud, %w(css1 css2 css3 css4) do |tag, css_class| %>
+    <%#= link_to tag.name, '/tags/'  + tag.name , :class => css_class %>
+    <%# end %>
+  </div><!-- /tagcloud -->
+  <% end %>
 
-</div>
+<!-- </div> -->
 <!-- 侧边栏 结束 -->

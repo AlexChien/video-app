@@ -1,5 +1,5 @@
 <!-- 视频列表 开始 -->
-<h2>视频列表</h2>
+<h2><%= t("video_list") %></h2>
 <hr />
 
 <div class="span-24"><%= will_paginate @videos %></div>
@@ -16,7 +16,7 @@
     </b>                
   </div>
   <div class="prepend-1 alt">
-  <%= link_to video.user.login, user_path(video.user) %> 上传于:
+  <%= link_to video.user.login, user_path(video.user) %> <%= t("uploaded_at") %> :
   <br />  
   <%= video.created_at.to_s(:db) %>
   </div>

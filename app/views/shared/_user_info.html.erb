@@ -1,8 +1,8 @@
 <!-- 用户信息栏 开始 -->
-<div class="lcolborder span-3 last">
-  <h3 class="alt"><%= @user.login %>的信息</h3>
+<!-- <div class="lcolborder span-3 last"> -->
+  <h3 class="alt"><%= @user.login %><%= t("’s")+t("user_profile") %></h3>
   <b>头像:</b><br />
-  <%= avatar_for @user %>
+  <%= link_to avatar_for(@user), user_path(@user) %>
   <br />
   <b><%= t("login_account") %>:</b><br />
   <%=h @user.login %>
@@ -26,5 +26,5 @@
   <b><%= t("current_login_ip") %>:</b><br />
   <%=h @user.current_login_ip %>
   <% end %>
-</div>
+<!-- </div> -->
 <!-- 用户信息栏 结束 -->

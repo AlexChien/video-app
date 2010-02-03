@@ -112,6 +112,7 @@ zh-CN:
         odd: "必须为单数"
         even: "必须为双数"
 
+  user: "用户"
   login: "登陆"
   email: "电子邮件"
   register: "注册"
@@ -133,6 +134,12 @@ zh-CN:
   current_login_ip: "本次登陆IP地址"
   first_login: "这是你第一次登陆"
   last_video: "最近视频"  
+  "’s": "的"  
+  homepage: "主页"  
+  user_profile: "用户信息"  
+  update_user_profile: "更新用户信息"  
+  edit_user_profile: "修改用户信息"  
+  user_has_no_video: "用户尚无视频，以下是其他用户的视频"  
 
   publiced: "已发布"
   pending: "待处理"
@@ -146,6 +153,7 @@ zh-CN:
   soft_deleted: "已删除"
   
   title: "标题"  
+  description: "描述"  
   uploaded_at: "上传于"  
   video_player: "播放器"  
   video_container: "视频封装"  
@@ -158,7 +166,14 @@ zh-CN:
   audio_bitrate: "音频码率"  
   audio_sample_rate: "音频采样率" 
   position: "位置"
+  video_list: "视频列表"
+  play_video: "播放视频"
+  edit_video: "管理视频"
+  encode_error: "视频编码错误，请联系管理员"
+  video_pending: "视频尚未审核通过"
+  video_processing: "视频正在处理中，稍后再试"
 
+  return: "返回"
   previous_page: "上一页"
   next_page: "下一页"
 

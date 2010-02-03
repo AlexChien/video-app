@@ -32,9 +32,9 @@
   <span>状态</span>: <%= t(user.state) %>
 </div>
 <div class="span-7">
-  <% video=@user.videos.last %>
-  <%= t("last_video") %>: <%= link_to video.title, admin_video_path(video) %><br />
-  <span><%= t("uploaded_at") %></span>: <%= video.created_at.to_s(:db) %>
+  <% video=user.videos.last %>
+  <%= t("last_video") %>: <%= link_to(video.title, admin_video_path(video)) if video %><br />
+  <span><%= t("uploaded_at") %></span>: <%= video.created_at.to_s(:db) if video %>
 </div>
 <div class="span-4">
 
