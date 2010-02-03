@@ -112,7 +112,9 @@ zh-CN:
         odd: "必须为单数"
         even: "必须为双数"
 
+  welcome: "欢迎你"
   user: "用户"
+  uploader: "上传者"
   login: "登陆"
   email: "电子邮件"
   register: "注册"
@@ -134,7 +136,7 @@ zh-CN:
   current_login_ip: "本次登陆IP地址"
   first_login: "这是你第一次登陆"
   last_video: "最近视频"  
-  "’s": "的"  
+  "’s": " 的"  
   homepage: "主页"  
   user_profile: "用户信息"  
   update_user_profile: "更新用户信息"  

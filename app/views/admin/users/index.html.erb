@@ -36,9 +36,7 @@
   <%= t("last_video") %>: <%= link_to(video.title, admin_video_path(video)) if video %><br />
   <span><%= t("uploaded_at") %></span>: <%= video.created_at.to_s(:db) if video %>
 </div>
-<div class="span-4">
-
-</div>
+<div class="span-4"></div>
 <hr />
 <% end %>
 

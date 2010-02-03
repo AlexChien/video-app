@@ -10,7 +10,9 @@ ActionController::Routing::Routes.draw do |map|
   # profiles resource route within a admin namespace:
   map.namespace :admin do |admin|
     # Directs /admin/profiles/* to Admin::ProfilesController (app/controllers/admin/profiles_controller.rb)
-    admin.resources :users
+    admin.resources :users do |user|
+      user.resources :videos, :member => { :rm => :delete }
+    end
     admin.resources :roles
     admin.resources :roles do |role|
       role.resources :users, :member => { :add => :put, :mv => :delete }

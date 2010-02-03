@@ -1,5 +1,4 @@
 <!-- 管理视频 首页 开始 -->
-
 <h2>管理视频</h2>
 <hr />
 
@@ -28,16 +27,18 @@
   </a>
 </div>
 <div class="span-7">
-  <p>标题: <%= link_to video.title, edit_admin_video_url(video) %></p>
-  <p>上传用户: <%= link_to video.user.login, user_path(video.user) %></p>
+  <span><%= t("title") %>:</span>
+  <%= link_to truncate(video.title,26), edit_admin_video_url(video) %><br />
+  <span><%= t("uploader") %>:</span> <%= link_to video.user.login, user_path(video.user) %>
 </div>
 <div class="span-3">
   <span>状态</span>:
-  <p><%= video.state %></p>
+  <p><%= t(video.state) %></p>
 </div>
-<div class="span-4">
-  <p>操作人</p>
-  <p>操作时间</p>
+<div class="span-4 button">
+  <!-- <p>操作人</p>
+  <p>操作时间</p> -->
+  <%= link_to t("edit_video"), edit_admin_video_path(video) %>
 </div>
 <hr />
 <% end %>

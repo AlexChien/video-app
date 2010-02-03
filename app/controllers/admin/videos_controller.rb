@@ -10,15 +10,30 @@ class Admin::VideosController < ApplicationController
   end
   
   def index
-    if params[:state]
-      @videos = Video.being(params[:state]).paginate(:page => params[:page], 
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      if params[:state]
+        @videos = @user.videos.being(params[:state]).paginate(:page => params[:page], 
                                                      :order => 'created_at DESC', 
-                                                     :per_page => 6)
-    else
-      @videos = Video.paginate(:page => params[:page], 
+                                                     :per_page => 6) 
+      else
+        @videos = Video.paginate(:page => params[:page], 
                                :order => 'created_at DESC', 
                                :per_page => 6)
+      end
+      render :template => "admin/users/show"
+    else
+      if params[:state]
+        @videos = Video.being(params[:state]).paginate(:page => params[:page], 
+                                                  :order => 'created_at DESC', 
+                                                  :per_page => 6)
+      else
+        @videos = Video.paginate(:page => params[:page], 
+                                 :order => 'created_at DESC', 
+                                 :per_page => 6)
+      end
     end
+
   end
 
   # 显示视频编码详细信息

@@ -1,18 +1,30 @@
 <!-- 审核、编辑用户 开始 -->
-<h2>审核、编辑用户</h2>
-<hr />
-
-<div class="span-12">
-<%= link_to "返回该用户显示页", user_path(@user) %> | 
-<%= link_to "返回该用户管理首页", admin_user_path(@user) %>
-</div>
+<div class="span-10"><h2><%= t("admin_edit_user_profile") %></h2></div>
 <% if current_user && current_user.has_role?('owner') %>
 <div class="button">
-  <%#= link_to("物理删除该用户", rm_admin_user_path(@user), 
+  <%= link_to("物理删除该用户", admin_user_path(@user), 
               :confirm => '物理删除该用户？删除后不可恢复！', :method => :delete) %>
 </div>
 <% end %>
+<hr />
+
+<div class="span-12">
+<%= link_to t("return")+t("user")+t("homepage"), account_path %> | 
+<%= link_to "返回该用户管理首页", admin_user_path(@user) %>
+</div>
+
+
+<div class="prepend-1">
+<% form_for @user, :url => account_path do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "/users/form", :object => f %>
+  <%= f.submit t("update_user_profile") %>
+<% end %>
+</div>
+
 <hr class="space" />
+
+
 
 <div class="span-12">
 <% form_for @user, :url => admin_user_path do |f| %>
@@ -65,51 +77,6 @@
 <% end %>
 </div>
 
-<div class="span-6">
-  <h3 class="alt">原始用户详细参数</h3>
-  <hr />
-  <div class="span-2">时长：</div> 
-  <div class="span-3">
-    <%# time = (@user.duration/1000).to_i if @user.duration %>
-    <%#= [time/3600, time/60 % 60, time % 60].map{|t| t.to_s.rjust(2,'0')}.join(':') %>
-    <%#= [[time/3600,'时'], [time/60 % 60,'分'], [time % 60,'秒']].map{|t| t[0].to_s.rjust(2,'0')+t[1]}.join if @user.duration %>
-  </div>
-  <hr /><div class="span-2">容器：</div> <div class="span-3"><%#= @user.container %></div>
-  <hr /><div class="span-2">宽：</div> <div class="span-3"><%#= @user.width %></div>
-  <hr /><div class="span-2">高：</div> <div class="span-3"><%#= @user.height %></div>
-  <hr /><div class="span-2">用户编码器：</div> <div class="span-3"><%#= @user.user_codec %></div>
-  <hr /><div class="span-2">用户码率：</div> <div class="span-3"><%#= @user.user_bitrate %></div>
-  <hr /><div class="span-2">用户帧率：</div> <div class="span-3"><%#= @user.fps %></div>
-  <hr /><div class="span-2">音频编码器：</div> <div class="span-3"><%#= @user.audio_codec %></div>
-  <hr /><div class="span-2">音频采样率：</div> <div class="span-3"><%#= @user.audio_sample_rate %></div>
-</div>
-
-<hr class="space" />
-<div class="span-18">
-  <h3 class="alt">播放原始用户：（仅当原始用户格式被支持时可用）</h3>
-  <%# url = @user.asset.url %>
-  <%#= render :partial => "shared/flowplayer", :locals => { :url => url, :player_id => "org_player" } %> 
-  <hr class="space" />
-</div>
-
-
-<% if @user.state == "converted" %>
-<div class = "span-18">
-  <h3 class="alt">播放编码后的用户：</h3>
-  <%#= "进入编码队列于：" + @user.queued_at.to_s(:db) if @user.queued_at %>
-  <%#= "开始编码于：" + @user.started_encoding_at.to_s(:db) if @user.started_encoding_at %>
-  <%#= "结束编码于：" + @user.encoded_at.to_s(:db) if @user.encoded_at %><hr class="space" />
-  <% if time = @user.encoding_time %>
-  完成编码总用： 
-  <%#= "#{time.hour}小时" unless time.hour == 0 %>
-  <%#= "#{time.min}分" unless time.min == 0 %>
-  <%#= "#{time.sec}秒" %>
-  <% end %>
-  <%# url = @user.asset.url(:transcoded) %>
-  <%#= render :partial => "shared/flowplayer", :locals => { :url => url, :player_id => "encoded_player" } %>
-  <hr class="space" />
-</div>			
-<% end %>
 
 <div class="span-12">
 <%= link_to "返回该用户显示页", user_path(@user) %> | 
