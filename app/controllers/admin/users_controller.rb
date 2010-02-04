@@ -66,44 +66,27 @@ class Admin::UsersController < ApplicationController
     when "审核通过"
       begin 
         @user.audit! # 通过审核
-        @user.queue! # 放入编码队列
-        flash[:notice] = "审核已通过,已将视频放入编码队列"
+        flash[:notice] = "审核已通过"
       rescue StateMachine::InvalidTransition
         flash[:notice] = "已通过审核"
       end
     when "提交更新"
       @user.update_attributes(params[:user])
-      flash[:notice] = "内容已更新"
-    when "重新生成缩略图"
-      @user.asset.reprocess!
-      flash[:notice] = "缩略图已重新生成"
-    when "中止编码" || "取消审核"
-      @user.cancel!
-      flash[:notice] = "已取消"
-    when "重置视频"
+      flash[:notice] = "帐号已更新"
+    when "停权"
+      @user.suspend!
+      flash[:notice] = "已停权"
+    when "复权"
+      @user.unsuspend!
+      flash[:notice] = "已复权"
+    when "恢复该用户"
       @user.resume!
       flash[:notice] = "已更改为待审核状态"
-    when "手动编码"
-      @user.fore_encode! # 将状态改为编码中才可使用paperclip的user_encoding processer
-      begin
-        begun_at = Time.now
-        @user.started_encoding_at = begun_at
-        @user.asset.reprocess! # 用paperclip processor处理视频编码
-        @user.converted! # 编码结束
-        ended_at = Time.now
-        @user.encoded_at = ended_at
-        @user.save!
-        @user.encoding_time = ended_at - begun_at
-        flash[:notice] = "视频已手动编码完成"
-      rescue
-        @user.failure! # 编码出错
-        flash[:notice] = "编码时出错"
-      end
     end
-    redirect_to edit_admin_user_path(@user)
+    redirect_to admin_user_path(@user)
   end
   
-  # 软删除视频
+  # 软删除用户
   def destroy
     begin
       @user.soft_delete!
@@ -116,6 +99,15 @@ class Admin::UsersController < ApplicationController
       end
     end
     redirect_to admin_users_path    
+  end
+  
+  # 物理删除用户
+  # DELETE /admin/users/1/rm
+  # DELETE /admin/users/1/rm.xml
+  def rm
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to admin_users_path
   end
 
 private

@@ -57,7 +57,8 @@
   <%= f.submit "手动编码" unless @video.state=="pending" %>
   <%= f.submit "不需编码" %>
   <% if @video.state == 'soft_deleted' %>
-  <%= link_to("恢复该视频", admin_video_path(@video), :confirm => '恢复该视频?', :method => :put) %>
+  <%#= link_to("恢复该视频", admin_video_path(@video), :confirm => '恢复该视频?', :method => :put) %>
+  <%= f.submit "恢复该视频", :confirm => '恢复该视频?' %>
   <% else %>
   <%= link_to("删除该视频", admin_video_path(@video), :confirm => '删除该视频?', :method => :delete) %>
   <% end %>

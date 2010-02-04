@@ -66,14 +66,5 @@ class UsersController < ApplicationController
         render :action => "edit"
       end
   end
-
-  # DELETE /users/1
-  # DELETE /users/1.xml
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-
-    redirect_to(users_url)
-  end
   
 end

@@ -70,6 +70,9 @@ class Admin::VideosController < ApplicationController
     when "重置视频"
       @video.resume!
       flash[:notice] = "已更改为待处理状态"
+    when "恢复该视频"
+      @video.resume!
+      flash[:notice] = "已更改为待处理状态"
     when "不需编码"
       @video.cancel!
       @video.resume!

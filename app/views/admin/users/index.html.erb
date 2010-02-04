@@ -2,21 +2,15 @@
 <h2>管理用户</h2>
 <hr />
 
-<% if false %>
 <div class="prepend-1 span-18">
 <%= link_to "全部用户", admin_users_path %>
 <%= link_to "待审核用户", admin_users_path(:state => 'pending') %>
-<%= link_to "已审核用户", admin_users_path(:state => 'audited') %>
-<%= link_to "进入编码队列用户", admin_users_path(:state => 'queued_up') %>
-<%= link_to "编码中用户", admin_users_path(:state => 'converting') %>
-<%= link_to "已编码用户", admin_users_path(:state => 'converted') %>
-<%= link_to "编码出错用户", admin_users_path(:state => 'error') %>
-<%= link_to "已取消用户", admin_users_path(:state => 'canceled') %>
+<%= link_to "正常用户", admin_users_path(:state => 'normal') %>
+<%= link_to "停权用户", admin_users_path(:state => 'suspended') %>
 <%= link_to "已删除用户", admin_users_path(:state => 'soft_deleted') %>
 </div>
 <hr class="space"/>
 <hr />
-<% end %>
 
 <div class="span-19"><%= will_paginate @users %></div>
 <hr class="space"/>
@@ -36,7 +30,9 @@
   <%= t("last_video") %>: <%= link_to(video.title, admin_video_path(video)) if video %><br />
   <span><%= t("uploaded_at") %></span>: <%= video.created_at.to_s(:db) if video %>
 </div>
-<div class="span-4"></div>
+<div class="span-4 button">
+  <%= link_to t("admin_edit_user_profile"), edit_admin_user_path(user) %>
+</div>
 <hr />
 <% end %>
 

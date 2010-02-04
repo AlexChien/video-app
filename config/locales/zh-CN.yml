@@ -141,7 +141,12 @@ zh-CN:
   user_profile: "用户信息"  
   update_user_profile: "更新用户信息"  
   edit_user_profile: "修改用户信息"  
+  admin_edit_user_profile: "审核、编辑用户"  
   user_has_no_video: "用户尚无视频，以下是其他用户的视频"  
+  normal: "正常"  
+  suspend: "停权"  
+  suspended: "被停权"  
+  unsuspend: "复权"  
 
   publiced: "已发布"
   pending: "待处理"

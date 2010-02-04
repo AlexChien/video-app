@@ -12,70 +12,30 @@
 <%= link_to t("return")+t("user")+t("homepage"), account_path %> | 
 <%= link_to "返回该用户管理首页", admin_user_path(@user) %>
 </div>
-
+<hr class="space" />
 
 <div class="prepend-1">
-<% form_for @user, :url => account_path do |f| %>
+<% form_for @user, :url => admin_user_path do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "/users/form", :object => f %>
-  <%= f.submit t("update_user_profile") %>
+
+  <div class="span-12">
+  <%= f.submit t("update_user_profile") %> |
+  <% if @user.state=="pending" %>
+  <%= f.submit "审核通过" %> | 
+  <% elsif @user.state=="normal" %>
+  <%= f.submit "停权" %> |  
+  <% elsif @user.state=="suspended" %>
+  <%= f.submit "复权" %> |  
+  <% else %>
+  <%= f.submit "恢复该用户", :confirm => '恢复该用户?' %>
+  <% end %>
+  <%= link_to("删除该用户", admin_user_path(@user), :confirm => '删除该用户?', :method => :delete) unless @user.state=="soft_deleted" %>
+  </div>
 <% end %>
 </div>
 
 <hr class="space" />
-
-
-
-<div class="span-12">
-<% form_for @user, :url => admin_user_path do |f| %>
-  <%= f.error_messages %>
-  <%#= render :partial => "form", :object => f %>
-  <h3 class="alt"><%#= f.label :title,'标题' %>: </h3>
-  <%#= f.text_field :title, :size => 70 %>
-  <hr class="space" />
-  
-  <%= link_to @user.login, @user %> 上传于 <%= @user.created_at.to_s(:db) %>
-  <hr class="space" />  
-  
-  <h3 class="alt">当前状态: </h3>
-  <%= t(@user.state) %>
-  <hr class="space" />  
-  
-  <h3 class="alt">用户截图:</h3>
-  <%#= image_tag @user.asset.url(:medium), :alt => @user.filename %>
-  <hr class="space" />  
-  
-  <h3 class="alt"><%#= f.label :description,'描述' %>:</h3>
-  <%#= f.text_area :description %> 
-  
-  <% if false %>
-  <h3 class="alt"><%#= f.label :tags %>: </h3>
-  <%#= f.text_field :tag_list %>
-  <% end %>
-  
-  <div class="span-12">
-  <%= f.submit "提交更新" %> |
-  <% if @user.state=="pending" %>
-  <%= f.submit "审核通过" %> | 
-  <% elsif @user.state=="converting" %>
-  <%= f.submit "中止编码" %> |  
-  <% elsif @user.state=="canceled" || @user.state=="error" \
-          || @user.state=="soft_deleted"%>
-    <%= f.submit "重置用户" %> |  
-  <% else %>
-    <%= f.submit "取消审核" %> |
-  <% end %>
-  <%= f.submit "重新生成缩略图" %> |
-  <%= f.submit "手动编码" unless @user.state=="pending" %>
-  <%= f.submit "不需编码" %>
-  <% if @user.state == 'soft_deleted' %>
-  <%= link_to("恢复该用户", admin_user_path(@user), :confirm => '恢复该用户?', :method => :put) %>
-  <% else %>
-  <%= link_to("删除该用户", admin_user_path(@user), :confirm => '删除该用户?', :method => :delete) %>
-  <% end %>
-  </div>
-<% end %>
-</div>
 
 
 <div class="span-12">
