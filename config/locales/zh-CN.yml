@@ -134,7 +134,7 @@ zh-CN:
   current_login_at: "本次登陆于"
   last_login_ip: "上次登陆IP地址"
   current_login_ip: "本次登陆IP地址"
-  first_login: "这是你第一次登陆"
+  first_login: "这是第一次登陆"
   last_video: "最近视频"  
   "’s": " 的"  
   homepage: "主页"  

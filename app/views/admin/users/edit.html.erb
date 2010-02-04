@@ -9,7 +9,7 @@
 <hr />
 
 <div class="span-12">
-<%= link_to t("return")+t("user")+t("homepage"), account_path %> | 
+<%= link_to t("return")+t("user")+t("homepage"), user_path(@user) %> | 
 <%= link_to "返回该用户管理首页", admin_user_path(@user) %>
 </div>
 <hr class="space" />
@@ -39,7 +39,7 @@
 
 
 <div class="span-12">
-<%= link_to "返回该用户显示页", user_path(@user) %> | 
+<%= link_to t("return")+t("user")+t("homepage"), user_path(@user) %> |  
 <%= link_to "返回该用户管理首页", admin_user_path(@user) %>
 </div>
 <hr class="space" />
